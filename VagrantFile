@@ -11,7 +11,7 @@ Vagrant::Config.run do |config|
 
   # Enable provisioning through a shell script.
   config.vm.provision :shell do |shell|
-    relative     = '../_scripts/vagrant/'
+    relative     = ''
     script       = 'provision.sh'
     shell.inline = ERB.new("<% def import(file); File.read('#{relative}' + file); end %>" + File.read("#{relative}#{script}")).result
   end

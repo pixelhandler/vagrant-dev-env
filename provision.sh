@@ -13,7 +13,7 @@ nameservers-append '8.8.8.8'
 nameservers-append '8.8.4.4'
 
 # Use a local Ubuntu mirror, results in faster downloads.
-apt-mirror-pick 'bg'
+apt-mirror-pick 'us'
 
 # Update packages cache.
 apt-packages-update
@@ -21,24 +21,19 @@ apt-packages-update
 # Install VM packages.
 apt-packages-install     \
   git-core               \
-  nodejs                 \
-  npm                    \
-  mongodb-10gen          \
   default-jdk            \
   imagemagick            \
   curl                   \
   ack-grep               \
   vim                    \
   build-essential        \
-  chrpath                \
-  libssl-dev             \
-  libfontconfig          \
-  libjpeg-progs          \
-  optipng                \
-  ruby                   \
-  rubygems               \
-  rake
+  chrpath
 
-<%= import 'init/lamp.sh' %>
-<%= import 'init/yeoman.sh' %>
+dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
+
+<%= import 'vagrant-shell-scripts/bin/ruby.sh' %>
+<%= import 'vagrant-shell-scripts/bin/node.sh' %>
+<%= import 'vagrant-shell-scripts/bin/mongo.sh' %>
+<%= import 'vagrant-shell-scripts/bin/lamp.sh' %>
+<%= import 'vagrant-shell-scripts/bin/yeoman.sh' %>
 
