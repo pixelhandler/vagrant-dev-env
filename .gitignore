@@ -17,6 +17,10 @@
 # Vagrant #
 ###########
 .vagrant
+precise64
+precise64/*
+www/.cgi-bin
+www/*/.cgi-bin
 
 # OS generated files #
 ######################

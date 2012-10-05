@@ -29,11 +29,12 @@ apt-packages-install     \
   build-essential        \
   chrpath
 
+
 dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
 
-<%= import 'vagrant-shell-scripts/bin/ruby.sh' %>
-<%= import 'vagrant-shell-scripts/bin/node.sh' %>
-<%= import 'vagrant-shell-scripts/bin/mongo.sh' %>
-<%= import 'vagrant-shell-scripts/bin/lamp.sh' %>
-<%= import 'vagrant-shell-scripts/bin/yeoman.sh' %>
+<%= import 'bin/ruby.sh' %>
+<%= import 'bin/node.sh' %>
+<%= import 'bin/mongo.sh' %>
+<%= import 'bin/lamp.sh' %>
+<%= import 'bin/yeoman.sh' %>
 
