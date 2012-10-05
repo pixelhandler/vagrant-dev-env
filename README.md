@@ -1,6 +1,9 @@
 Vagrant Development Environment
 ===============================
 
+Vagrant development environment provisioned with shell scripts on precise64 box
+
+
 **Links:**  
 * [Vagrant Shell Scripts](https://github.com/StanAngeloff/vagrant-shell-scripts "scripts") by StanAngeloff  
 * [Boxes](http://www.vagrantbox.es "boxes")  
