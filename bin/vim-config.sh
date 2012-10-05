@@ -4,7 +4,7 @@
 
 if [ -d /home/vagrant/.vim ]; then echo 'vim config already setup. '
 else
-  mkdir /home/vagrant/.vim && cd /home/vagrant.vim
+  mkdir /home/vagrant/.vim && cd /home/vagrant/.vim
   mkdir _backup _temp
   git clone git://github.com/pixelhandler/vim-config.git .
   git submodule init
