@@ -8,9 +8,12 @@ Vagrant development environment provisioned with shell scripts on precise64 box
 1. Install VirtualBox (version 4.1.22 or 4.1.23 not 4.2)
 2. Install Vagrant (vagrantup.com)
 3. Clone repo `git clone git://github.com/pixelhandler/vagrant-dev-env.git`
-4. Build box `cd vagrant-dev-env && vagrant up`
-5. Add to your hosts file: `echo '192.168.50.4 precise64' >> /etc/hosts`
-6. Visit <http://precise64> or <http://precise64/phpinfo.php> to working apache vhost
+4. Build box `cd vagrant-dev-env`
+5. Add submodule `git submodule init`
+6. Update *vagrant-shell-scripts* submodule `git submodule update`
+7. Fire up your box `vagrant up`
+8. Add to your hosts file: `echo '192.168.50.4 precise64' >> /etc/hosts`
+9. Visit <http://precise64> or <http://precise64/phpinfo.php> to working apache vhost
 
 ## Provision.sh and /bin
 
