@@ -15,3 +15,4 @@ Vagrant development environment provisioned with shell scripts on precise64 box
 **Browsing the vagrant server:**  
 
     echo '192.168.50.4 http://precise64' >> /etc/hosts
+
