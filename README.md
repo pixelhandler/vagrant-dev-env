@@ -25,3 +25,9 @@ The precise64 box uses a shell script to provision the vagrant box. Also in the 
 * [Install Yeoman on Linux](https://github.com/yeoman/yeoman/issues/461 "yeoman on linux")  
 * [Vim-config](https://github.com/pixelhandler/vim-config "Vim config") using pathogen
 
+## Build Something wity Yeoman.io
+
+1. If not alread in the repo's root directory `cd vagrant-dev-env` (or the path you created)
+2. Ssh into the presice64 box with `vagrant ssh`
+3. Build a HTML5 boilerplate project: `cd /vagrant/www && yeoman init quickstart`
+4. Visit <http://precise64/app/> a basic [h5bp](http://html5boilerplate.com "h5bp") project is running
