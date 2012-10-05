@@ -2,21 +2,25 @@
 
 # Vim config - see: https://github.com/pixelhandler/vim-config
 
-if [ -d /home/vagrant/.vim ]; then echo 'vim config already setup. '
+VAGRANTHOME="/home/vagrant/"
+VIMDIR=$VAGRANTDIR"/.vim"
+echo "checking directory "$VIMDIR
+
+if [ -d $VIMDIR ]; then echo 'vim config already setup in '$VIMDIR
 else
-  mkdir /home/vagrant/.vim && cd /home/vagrant/.vim
+  git clone git://github.com/pixelhandler/vim-config.git $VIMDIR
+  ln -s $VIMDIR/.vimrc $VAGRANTHOME/.vimrc
+  cd $VIMDIR
   mkdir _backup _temp
-  git clone git://github.com/pixelhandler/vim-config.git .
   git submodule init
   git submodule update
   git submodule foreach git submodule init
   git submodule foreach git submodule update
-  cd bundle/command-t/
-  rake make
-  cd ~
-  ln -s .vim/.vimrc ./.vimrc
-  echo 'vim config setup done. '
+  echo 'vim config setup in '$VIMDIR
+  echo 'to use command-t with vim see: https://github.com/wincent/Command-T'
+  echo 'you will need to build, like so... '
+  echo '"`cd ~/.vim/bundle/command-t/ruby/command-t`"'
+  echo '`ruby extconf.rb`'
+  echo '`make`'
 fi
-
-chown -R vagrant:vagrant /home/vagrant/.vim
 
