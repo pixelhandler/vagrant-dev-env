@@ -1,0 +1,3 @@
+[submodule "vagrant-shell-scripts"]
+	path = vagrant-shell-scripts
+	url = git://github.com/StanAngeloff/vagrant-shell-scripts.git
