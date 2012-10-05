@@ -24,8 +24,10 @@ apache-modules-enable actions rewrite fastcgi suexec
 apache-sites-disable default default-ssl
 
 # Create apache vhost
-PHP=/usr/bin/php-cgi EXTRA='  ServerName precise64' apache-sites-create 'precise64' '/vagrant/www' 'vagrant'
-apache-sites-enable 'precise64'
+if [ ! -e /etc/apache2/sites-available ]; then
+  PHP=/usr/bin/php-cgi EXTRA='  ServerName precise64' apache-sites-create 'precise64' '/vagrant/www' 'vagrant'
+  apache-sites-enable 'precise64'
+fi
 
 # Restart Apache web service.
 apache-restart

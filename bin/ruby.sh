@@ -8,7 +8,8 @@
 apt-packages-install \
   ruby1.9.1          \
   ruby1.9.1-dev      \
-  rubygems1.9.1
+  rubygems1.9.1      \
+  rake
 
 alternatives-ruby-install 1.9.1
 ruby-gems-install pkg-config
