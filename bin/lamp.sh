@@ -24,12 +24,11 @@ apache-modules-enable actions rewrite fastcgi suexec
 apache-sites-disable default default-ssl
 
 # Create apache vhost
-if [ ! -e /etc/apache2/sites-available ]; then
-  PHP=/usr/bin/php-cgi EXTRA='  ServerName precise64' apache-sites-create 'precise64' '/vagrant/www' 'vagrant'
-  apache-sites-enable 'precise64'
+VHOSTNAME='precise64'
+if [ ! -e /etc/apache2/sites-available/$VHOSTNAME ]; then
+  PHP=/usr/bin/php-cgi EXTRA='  ServerName precise64' apache-sites-create $VHOSTNAME '/vagrant/www' 'vagrant'
+  apache-sites-enable $VHOSTNAME
 fi
-
-# Restart Apache web service.
 apache-restart
 
 # Allow unsecured remote access to MySQL.
