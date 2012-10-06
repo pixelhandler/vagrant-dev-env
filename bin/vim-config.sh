@@ -16,11 +16,11 @@ else
   git submodule update
   git submodule foreach git submodule init
   git submodule foreach git submodule update
+  sudo chown -R vagrant:vagrant $VIMDIR
+  sudo chown vagrant:vagrant $VAGRANTHOME/.vimrc
   echo 'vim config setup in '$VIMDIR
   echo 'to use command-t with vim see: https://github.com/wincent/Command-T'
   echo 'you will need to build, like so... '
-  echo '"`cd ~/.vim/bundle/command-t/ruby/command-t`"'
-  echo '`ruby extconf.rb`'
-  echo '`make`'
+  echo '"`cd ~/.vim/bundle/command-t && sudo rake make`'
 fi
 
