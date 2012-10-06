@@ -1,7 +1,7 @@
 Vagrant Development Environment
 ===============================
 
-Vagrant development environment provisioned with shell scripts on precise64 box
+Vagrant development environment provisioned with shell scripts on a (linux/ubuntu) precise64 box
 
 ## Setup
 
@@ -27,10 +27,13 @@ The precise64 box uses a shell script to provision the vagrant box. Also in the 
 * [Bridged Newtworking](http://vagrantup.com/v1/docs/bridged_networking.html "bridged")  
 * [Install Yeoman on Linux](https://github.com/yeoman/yeoman/issues/461 "yeoman on linux")  
 * [Vim-config](https://github.com/pixelhandler/vim-config "Vim config") using pathogen
+* [Meteor Quickstart](http://docs.meteor.com/#quickstart "meteor")
+* [Deployd Getting Started](http://www.deployd.com/docs/index.md "deployd")
 
-## Build Something wity Yeoman.io
+## Build Something with Yeoman.io, deployd, or Meteor
 
 1. If not alread in the repo's root directory `cd vagrant-dev-env` (or the path you created)
 2. Ssh into the presice64 box with `vagrant ssh`
 3. Build a HTML5 boilerplate project: `cd /vagrant/www && yeoman init quickstart`
 4. Visit <http://precise64/app/> a basic [h5bp](http://html5boilerplate.com "h5bp") project is running
+
