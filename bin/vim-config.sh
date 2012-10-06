@@ -3,7 +3,7 @@
 # Vim config - see: https://github.com/pixelhandler/vim-config
 
 VAGRANTHOME="/home/vagrant/"
-VIMDIR=$VAGRANTDIR"/.vim"
+VIMDIR="/home/vagrant/.vim"
 echo "checking directory "$VIMDIR
 
 if [ -d $VIMDIR ]; then echo 'vim config already setup in '$VIMDIR
