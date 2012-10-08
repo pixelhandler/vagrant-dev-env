@@ -34,6 +34,15 @@ The precise64 box uses a shell script to provision the vagrant box. Also in the 
 
 1. If not alread in the repo's root directory `cd vagrant-dev-env` (or the path you created)
 2. Ssh into the presice64 box with `vagrant ssh`
-3. Build a HTML5 boilerplate project: `cd /vagrant/www && yeoman init quickstart`
-4. Visit <http://precise64/app/> a basic [h5bp](http://html5boilerplate.com "h5bp") project is running
+
+* Build a HTML5 boilerplate project: `cd /vagrant/www && yeoman init quickstart`  
+* Visit <http://precise64/app/> a basic [h5bp](http://html5boilerplate.com "h5bp") project is running  
+
+* Build the meteor example todos app  
+* `cd ~ && meteor create --example todos`
+* `cd ~/todos && meteor run`
+
+* Build a deployd app
+* `cd ~ && dpd create hello`
+ 
 
