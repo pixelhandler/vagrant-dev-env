@@ -4,3 +4,8 @@ apt-packages-repository 'deb http://downloads-distro.mongodb.org/repo/ubuntu-ups
 apt-packages-update
 apt-packages-install mongodb-10gen
 
+sudo mkdir /data
+sudo mkdir /data/db
+sudo mkdir /data/db/journal
+sudo chown -R vagrant:vagrant /data
+

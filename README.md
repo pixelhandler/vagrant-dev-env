@@ -33,16 +33,23 @@ The precise64 box uses a shell script to provision the vagrant box. Also in the 
 ## Build Something with Yeoman.io, deployd, or Meteor
 
 1. If not alread in the repo's root directory `cd vagrant-dev-env` (or the path you created)
-2. Ssh into the presice64 box with `vagrant ssh`
+2. Login to your presice64 box via ssh `vagrant ssh` (the examples below are run from the vagrant box after connecting via ssh)
 
 * Build a HTML5 boilerplate project: `cd /vagrant/www && yeoman init quickstart`  
 * Visit <http://precise64/app/> a basic [h5bp](http://html5boilerplate.com "h5bp") project is running  
 
-* Build the meteor example todos app  
-* `cd ~ && meteor create --example todos`
-* `cd ~/todos && meteor run`
+**Note:** Running mongo from apps in the shared directory /vagrant may not work; however running from your /home/vagrant (`cd ~`) directory works. To keep application files in the shared directory /vagrant but run from /home/vagrant/ **use *rsync* as a workaround**. See [stackoverflow 'Problems to run examples in Meteor'](http://stackoverflow.com/questions/10103830/problems-to-run-examples-in-meteor).
 
-* Build a deployd app
-* `cd ~ && dpd create hello`
+* Build the **meteor** example todos app
+* `cd /vagrant && meteor create --example todos`
+* `rsync -Pav /vagrant/todos/ /home/vagrant/todos/`
+* `cd /home/vagrant/todos && meteor run` *(should start on port 3000)*
+* Visit <http://precise64:3000>
+
+* Build a **deployd** app
+* `cd /vagrant && dpd create hello`
+* `rsync -Pav /vagrant/hello/ /home/vagrant/hello/`
+* `cd /home/vagrant/hello && dpd` *(should start on port 2403)*
+* Visit <http://precise64:2403> and <http://precise64:2403/dashboard>
  
 
