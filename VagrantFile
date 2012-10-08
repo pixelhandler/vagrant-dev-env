@@ -8,6 +8,12 @@ Vagrant::Config.run do |config|
   config.vm.network :hostonly, "192.168.50.4"
   config.vm.network :bridged
   config.ssh.forward_agent = true
+  config.vm.customize([
+    'setextradata',
+    :id,
+    'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-code',
+    '1'
+  ])
 
   # Enable provisioning through a shell script.
   config.vm.provision :shell do |shell|
