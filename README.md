@@ -40,16 +40,16 @@ The precise64 box uses a shell script to provision the vagrant box. Also in the 
 
 **Note:** Running mongo from apps in the shared directory /vagrant may not work; however running from your /home/vagrant (`cd ~`) directory works. To keep application files in the shared directory /vagrant but run from /home/vagrant/ **use *rsync* as a workaround**. See [stackoverflow 'Problems to run examples in Meteor'](http://stackoverflow.com/questions/10103830/problems-to-run-examples-in-meteor).
 
-* Build the **meteor** example todos app
-* `cd /vagrant && meteor create --example todos`
-* `rsync -Pav /vagrant/todos/ /home/vagrant/todos/`
-* `cd /home/vagrant/todos && meteor run` *(should start on port 3000)*
-* Visit <http://precise64:3000>
+Build the **meteor** example todos app  
+* `cd /vagrant && meteor create --example todos`  
+* `rsync -Pav /vagrant/todos/ /home/vagrant/todos/`  
+* `cd /home/vagrant/todos && meteor run` *(should start on port 3000)*  
+* Visit <http://precise64:3000>  
 
-* Build a **deployd** app
-* `cd /vagrant && dpd create hello`
-* `rsync -Pav /vagrant/hello/ /home/vagrant/hello/`
-* `cd /home/vagrant/hello && dpd` *(should start on port 2403)*
-* Visit <http://precise64:2403> and <http://precise64:2403/dashboard>
- 
+Build a **deployd** app  
+* `cd /vagrant && dpd create hello`  
+* `rsync -Pav /vagrant/hello/ /home/vagrant/hello/`  
+* `cd /home/vagrant/hello && dpd` *(should start on port 2403)*  
+* Visit <http://precise64:2403> and <http://precise64:2403/dashboard>  
+
 
