@@ -37,3 +37,6 @@ mysql-remote-access-allow
 # Restart MySQL service for changes to take effect.
 mysql-restart
 
+# Set PHP timezone
+php-settings-update 'date.timezone' 'America/Los_Angeles'
+

@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+# install vim
+apt-packages-install     \
+  vim                    \
+  gpm                    \
+  ctags                  \
+  vim-scripts            \
+  vim-doc                \
+  build-essential        \
+
+
 # Vim config - see: https://github.com/pixelhandler/vim-config
 
 VAGRANTHOME="/home/vagrant/"

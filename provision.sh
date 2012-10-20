@@ -25,10 +25,8 @@ apt-packages-install     \
   imagemagick            \
   curl                   \
   ack-grep               \
-  vim                    \
-  build-essential        \
-  chrpath
-
+  chrpath                \
+  inotify-tools
 
 dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
 
@@ -38,4 +36,7 @@ dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
 <%= import 'bin/lamp.sh' %>
 <%= import 'bin/yeoman.sh' %>
 <%= import 'bin/vim-config.sh' %>
+
+echo 'if [ -d "/vagrant/bin" ]; then PATH=$PATH":/vagrant/bin"; fi' >> ~/.profile
+
 
