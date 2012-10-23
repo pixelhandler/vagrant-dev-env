@@ -5,7 +5,9 @@ describe("Bowling Game Kata", function () {
     describe("Gutter Game", function () {
 
         it("should score zero", function () {
-            var game = new Game();
+            require(['game'], function (Game) {
+                var game = new Game();
+            });
         });
 
     });
