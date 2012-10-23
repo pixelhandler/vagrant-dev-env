@@ -33,6 +33,17 @@ describe("Bowling Game Kata", function () {
 
     });
 
+    describe("Game with one spare", function () {
+
+        it("should score 20 given the first 3 rolls hit 5 pins", function () {
+            rollMany.call(this.game, 2, 5); // roll spare
+            this.game.roll(5);
+            rollMany.call(this.game, 17, 0);
+            expect(this.game.score()).to.equal(20);
+        });
+
+    });
+
 });
 
 });
