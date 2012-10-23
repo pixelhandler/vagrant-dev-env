@@ -33,7 +33,7 @@ describe("Bowling Game Kata", function () {
 
     });
 
-    describe("Game with one spare", function () {
+    describe.skip("Game with one spare", function () {
 
         it("should score 20 given the first 3 rolls hit 5 pins", function () {
             rollMany.call(this.game, 2, 5); // roll spare
