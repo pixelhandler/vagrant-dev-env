@@ -16,7 +16,9 @@ define('game', function () {
         var score = 0, frameIdx = 0;
 
         for (frameIdx; frameIdx < this._rolls.length; frameIdx++) {
-            if (this._isSpare(frameIdx)) {
+            if (this._isStrike(frameIdx)) {
+                score += this._scoreStrike(frameIdx);
+            } else if (this._isSpare(frameIdx)) {
                 score += 10 + this._rolls[frameIdx + 2];
                 frameIdx ++;
             } else {
@@ -48,6 +50,25 @@ define('game', function () {
         }
 
         return isSpare;
+    };
+
+    Game.prototype._isStrike = function (frameIdx) {
+        return (this._rolls[frameIdx] === 10);
+    };
+
+    Game.prototype._scoreStrike = function (frameIdx) {
+        var score = 0, i = 1, bonusFrames = 2;
+
+        if (frameIdx <= 9) {
+            score += 10;
+            for (i; i <= bonusFrames; i++) {
+                if (this._rolls[frameIdx + i]) {
+                    score += this._rolls[frameIdx + i];
+                }
+            }
+        }
+
+        return score;
     };
 
     return Game;
