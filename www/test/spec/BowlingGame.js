@@ -1,11 +1,11 @@
 // Bowling Game specs
+require(['game'], function (Game) {
 
 describe("Bowling Game Kata", function () {
 
     describe("Gutter Game", function () {
 
         it("should score zero", function () {
-            require(['game'], function (Game) {
                 var game = new Game(),
                     i = 0;
 
@@ -13,9 +13,11 @@ describe("Bowling Game Kata", function () {
                     game.roll(0);
                 }
                 expect(game.score()).to.equal(0);
-            });
         });
 
     });
 
 });
+
+});
+
