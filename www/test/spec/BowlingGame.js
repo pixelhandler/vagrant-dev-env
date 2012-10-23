@@ -16,6 +16,10 @@ describe("Bowling Game Kata", function () {
         this.roll(5);
     }
 
+    function rollStrike() {
+        this.roll(10);
+    }
+
     beforeEach(function () {
         this.game = new Game();
     });
@@ -55,6 +59,16 @@ describe("Bowling Game Kata", function () {
             expect(this.game.score()).to.equal(19);
         });
 
+    });
+
+    describe("Game with one strike", function () {
+
+        it("should score 26 given a strike on the 1st roll and 2 following rolls that hit 4 pins", function () {
+            rollStrike.call(this.game);
+            rollMany.call(this.game, 2, 4);
+            rollMany.call(this.game, 17, 0);
+            expect(this.game.score()).to.equal(26);
+        });
 
     });
 
