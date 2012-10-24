@@ -1,6 +1,858 @@
-<!DOCTYPE html>
-<html>
-<body>
-    <h1>It works!</h1>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+body{
+  color:#444;
+  font-family:Georgia, Palatino, 'Palatino Linotype', Times,
+              'Times New Roman', serif,
+              "Hiragino Sans GB", "STXihei", "微软雅黑";
+  font-size:12px;
+  line-height:1.5em;
+  background:#fefefe;
+  width: 45em;
+  margin: 10px auto;
+  padding: 1em;
+  outline: 1300px solid #FAFAFA;
+}
+
+a{ color: #0645ad; text-decoration:none;}
+a:visited{ color: #0b0080; }
+a:hover{ color: #06e; }
+a:active{ color:#faa700; }
+a:focus{ outline: thin dotted; }
+a:hover, a:active{ outline: 0; }
+
+span.backtick {
+  border:1px solid #EAEAEA;
+  border-radius:3px;
+  background:#F8F8F8;
+  padding:0 3px 0 3px;
+}
+
+::-moz-selection{background:rgba(255,255,0,0.3);color:#000}
+::selection{background:rgba(255,255,0,0.3);color:#000}
+
+a::-moz-selection{background:rgba(255,255,0,0.3);color:#0645ad}
+a::selection{background:rgba(255,255,0,0.3);color:#0645ad}
+
+p{
+margin:1em 0;
+}
+
+img{
+max-width:100%;
+}
+
+h1,h2,h3,h4,h5,h6{
+font-weight:normal;
+color:#111;
+line-height:1em;
+}
+h4,h5,h6{ font-weight: bold; }
+h1{ font-size:2.5em; }
+h2{ font-size:2em; border-bottom:1px solid silver; padding-bottom: 5px; }
+h3{ font-size:1.5em; }
+h4{ font-size:1.2em; }
+h5{ font-size:1em; }
+h6{ font-size:0.9em; }
+
+blockquote{
+color:#666666;
+margin:0;
+padding-left: 3em;
+border-left: 0.5em #EEE solid;
+}
+hr { display: block; height: 2px; border: 0; border-top: 1px solid #aaa;border-bottom: 1px solid #eee; margin: 1em 0; padding: 0; }
+
+
+pre , code, kbd, samp { 
+  color: #000; 
+  font-family: monospace; 
+  font-size: 0.88em; 
+  border-radius:3px;
+  background-color: #F8F8F8;
+  border: 1px solid #CCC; 
+}
+pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; padding: 5px;}
+pre code { border: 0px !important; }
+code { padding: 0 3px 0 3px; }
+
+b, strong { font-weight: bold; }
+
+dfn { font-style: italic; }
+
+ins { background: #ff9; color: #000; text-decoration: none; }
+
+mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
+
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+ul, ol { margin: 1em 0; padding: 0 0 0 2em; }
+li p:last-child { margin:0 }
+dd { margin: 0 0 0 2em; }
+
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+td { vertical-align: top; }
+
+@media only screen and (min-width: 480px) {
+body{font-size:14px;}
+}
+
+@media only screen and (min-width: 768px) {
+body{font-size:16px;}
+}
+
+@media print {
+  * { background: transparent !important; color: black !important; filter:none !important; -ms-filter: none !important; }
+  body{font-size:12pt; max-width:100%;}
+  a, a:visited { text-decoration: underline; }
+  hr { height: 1px; border:0; border-bottom:1px solid black; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  pre, blockquote { border: 1px solid #999; padding-right: 1em; page-break-inside: avoid; }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page :left { margin: 15mm 20mm 15mm 10mm; }
+  @page :right { margin: 15mm 10mm 15mm 20mm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+}</style></head><body><h1 id="bowling-game-kata-using-mocha-test-framework-and-yeomanio">Bowling Game Kata using Mocha Test framework and Yeoman.io</h1>
+
+<h2 id="this-tutorial-covers">This Tutorial Covers…</h2>
+
+<ol>
+<li>Using <a href="http://visionmedia.github.com/mocha/" title="Mocha Test Framework">Mocha test framework</a> with behavior-driven development (<a href="http://blog.dannorth.net/introducing-bdd/" title="Behavior-Driven Development">BDD</a>)  </li>
+<li>Based on <a href="http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata" title="The Bowling Game Kata">Uncle Bob's "Bowling Game" kata</a> </li>
+<li>Quickly setting up your development environment with <a href="https://github.com/pixelhandler/vagrant-dev-env" title="Vagrant Development Environment">Vagrant, VirtualBox</a> and <a href="http://yeoman.io/" title="Yeoman - set of tools">Yeoman</a> </li>
+<li>First, write <a href="https://github.com/chaijs/chai" title="Chai Assertion Library">test code</a> to describe the expected behavior that fail  </li>
+<li>Next, write applicaiton code to pass the tests  </li>
+<li><strong>The result</strong>: a program that <a href="http://slocums.homestead.com/gamescore.html" title="The Basics of Keeping Score">scores a game of bowling</a></li>
+</ol>
+
+<h3 id="tdd-process">TDD Process</h3>
+
+<ol>
+<li>Add a test</li>
+<li>Run all tests and see if the new one fails</li>
+<li>Write some code</li>
+<li>Run the automated tests and see them succeed</li>
+<li>Refactor code</li>
+<li>Repeat</li>
+</ol>
+
+<p>Basically <em><a href="http://en.wikipedia.org/wiki/Test-driven_development" title="Test-Driven Development">Lather, Rinse, Repeat</a></em></p>
+
+<p><em>“Test-driven development constantly repeats the steps of adding test cases that fail, passing them, and refactoring. Receiving the expected test results at each stage reinforces the programmer’s mental model of the code, boosts confidence and increases productivity.”</em></p>
+
+<h3 id="test-driven-development-tdd">Test-driven development (TDD)</h3>
+
+<p>A software development process that relies on the repetition of a very short development cycle: <strong>first</strong> the developer writes a <strong>failing automated test case</strong> that defines a desired improvement or new function, <strong>then</strong> produces <strong>code to pass that test</strong> and finally refactors the new code to acceptable standards.</p>
+
+<p>See: <a href="http://en.wikipedia.org/wiki/Test-driven_development" title="Test-Driven Development">http://en.wikipedia.org/wiki/Test-driven_development</a></p>
+
+<h3 id="behavior-driven-development-bdd">Behavior-driven development (BDD)</h3>
+
+<p>Introducing BDD : <a href="http://blog.dannorth.net/introducing-bdd/" title="Behavior-Driven Development">http://blog.dannorth.net/introducing-bdd/</a></p>
+
+<p>Use language/terminology that everyone on the project understands; using a pattern (e.g. Given, When, Then.) to test expected behavior.</p>
+
+<p><em>“Developers discovered it could do at least some of their documentation for them, so they started to write test methods that were real sentences.”</em></p>
+
+<h1 id="notes-for-mocha-testing-kata">Notes for Mocha Testing Kata</h1>
+
+<p>We will write tests first to author a simple program in JavaScript to score a <a href="http://en.wikipedia.org/wiki/Ten-pin_bowling" title="Ten pin bowling game Wikipedia article">game of ten-pin bowling</a>. This exercise is based on a <a href="http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata" title="The Bowling Game Kata">'kata' by Uncle Bob</a>. <sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup></p>
+
+<p>Note: The code examples in this tutorial will use <code>git diff</code> style indicators, lines with the first charator <code>+</code>/<code>-</code> show an action to add(+) or remove(-) a line of code.</p>
+
+<h2 id="vagrant-development-environment">Vagrant Development Environment</h2>
+
+<p>Vagrant <a href="https://github.com/pixelhandler/vagrant-dev-env" title="Vagrant Development Environment">development environment</a> provisioned with shell scripts on a (linux/ubuntu) precise64 box. The first time you execute <code>vagrant up</code> the provision scripts will download a linux box "precise64" and install some software needed for a development box. You can edit the provision.sh or scripts in the /bin directory to customize your environment or skip some installations. It may take about 10 minutes to download and install.</p>
+
+<pre><code>cd ~/code/
+git clone https://github.com/pixelhandler/vagrant-dev-env ./bowlingkata
+cd bowlingkata
+git submodule init
+git submodule update
+vagrant up
+</code></pre>
+
+<p>Update your /etc/hosts file, add: <code>192.168.50.4 precise64</code> the vagrant/virtual box will use http://precise64/ or http://192.168.50.4/ for the www root.</p>
+
+<p>Now you should have /vagrant/www/app and vagrant/www/test directories this is where we will write some code in.</p>
+
+<h2 id="scoring-bowling">Scoring Bowling</h2>
+
+<p><img src="./app/images/ten-pins.jpg" alt="Complete game" title="Uncle Bob game" /></p>
+
+<p>The game consists of 10 frames as shown above.  In each frame the player has two opportunities to knock down 10 pins.  The score for the frame is the total number of pins knocked down, plus bonuses for strikes and spares.</p>
+
+<p>A spare is when the player knocks down all 10 pins in two tries.  The bonus for that frame is the number of pins knocked down by the next roll.  So in frame 3 above, the score is 10 (the total number knocked down) plus a bonus of 5 (the number of pins knocked down on the next roll.)</p>
+
+<p>A strike is when the player knocks down all 10 pins on his first try.  The bonus for that frame is the value of the next two balls rolled.</p>
+
+<p>In the tenth frame a player who rolls a spare or strike is allowed to roll the extra balls to complete the frame.  However no more than three balls can be rolled in tenth frame.</p>
+
+<p>For more info see <a href="http://en.wikipedia.org/wiki/Ten-pin_bowling" title="Ten pin bowling game Wikipedia article">Ten-pin bowling game Wikipedia article</a> <sup class="footnote-ref" id="fnref-2"><a href="#fn-2">2</a></sup> and article for <a href="http://www.bowlingindex.com/instruction/scoring.htm" title="Scoring a bowling game">Instructions on scoring with game examples</a> <sup class="footnote-ref" id="fnref-3"><a href="#fn-3">3</a></sup></p>
+
+<h2 id="the-requirements">The Requirements</h2>
+
+<pre><code>+--------------------+
+| Game               |
+| ------------------ |
+| + roll(pins : int) |
+| + score() : int    |
++--------------------+
+</code></pre>
+
+<p>Write a class named “Game” that has two methods:  </p>
+
+<ul>
+<li><strong>roll(pins : int)</strong> is called each time the player rolls a ball.  The argument is the number of pins knocked down.  </li>
+<li><strong>score() : int</strong> is called only at the very end of the game.  It returns the total score for that game.</li>
+</ul>
+
+<h2 id="quick-design-session">Quick Design Session</h2>
+
+<ol>
+<li>Clearly we need the Game class. <img src="./app/images/game_class.png" alt="Game class" title="Game class" /></li>
+<li>A game has 10 frames.  <img src="./app/images/frame_class.png" alt="Frame class" title="Frame class" /></li>
+<li>A frame has 1 or two rolls.  <img src="./app/images/roll_class.png" alt="Roll class" title="Roll class" /></li>
+<li>The tenth frame has two or three rolls. It is different from all the other frames.  <img src="./app/images/tenth_frame_class.png" alt="Tenth frame" title="Tenth frame" /></li>
+<li>The score function must iterate through all the frames, and calculate all their scores.  <img src="./app/images/frame_class_score.png" alt="Score method" title="Score method" /></li>
+<li>The score for a spare or a strike depends on the frame’s successor  <img src="./app/images/frame_class_next.png" alt="Next frame" title="Next frame" /></li>
+</ol>
+
+<h2 id="begin">Begin</h2>
+
+<h3 id="create-a-project-in-vagrantwww">Create a project in /vagrant/www</h3>
+
+<p>Issue some vagrant and yeoman commands to get started</p>
+
+<pre><code>git checkout -b bowling
+vagrant ssh
+git config --global user.name "Your Name"
+git config --global user.email "me@dom.com"
+cd /vagrant/www
+yeoman init
+# Answer Y/n (make yeoman better), then... n, n, Y (RequireJS), n, N to yeoman.
+git add .
+git commit -m "yeoman init"
+yeoman test
+yeoman server
+# see http://precise64.dev:3501/ 
+# stop yeoman server with control-c, `exit` (vagrant ssh); or stay in bowlingkata and use vimvim
+</code></pre>
+
+<p>Edit <code>index.html</code> file in test directory</p>
+
+<pre><code>&lt;script data-main="../app/scripts/main" src="../app/scripts/vendor/require.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>Edit app/scripts/main.js add `app: 'app', and delete a few lines, all you will need is:</p>
+
+<pre><code> require.config({
+-  shim: {
+-  },
+-
+   paths: {
++    app: 'app',
+     jquery: 'vendor/jquery.min'
+   }
+ });
+- 
+-require(['app'], function(app) {
+-  // use app here
+-  console.log(app);
+-});
+</code></pre>
+
+<p>Edit file: /test/index.html using this markup:</p>
+
+<pre><code>&lt;!doctype html&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"&gt;
+  &lt;title&gt;Mocha Spec Runner&lt;/title&gt;
+  &lt;link rel="stylesheet" href="lib/mocha/mocha.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="mocha"&gt;&lt;/div&gt;
+
+  &lt;script src="lib/mocha/mocha.js"&gt;&lt;/script&gt;
+  &lt;script&gt;mocha.setup('bdd')&lt;/script&gt;
+  &lt;script src="lib/chai.js"&gt;&lt;/script&gt;
+  &lt;script&gt;expect = chai.expect&lt;/script&gt;
+  &lt;script data-main="../app/scripts/main" src="../app/scripts/vendor/require.js"&gt;&lt;/script&gt;
+
+  &lt;script&gt;
+    require(['../../test/spec/BowlingGame'], function () {
+      require(['../../test/runner/mocha']);
+    });
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><code>git show c9eab6</code> (<a href="https://github.com/pixelhandler/vagrant-dev-env/commit/c9eab6e4487b41a7af5e9ed7e7b9ac856ec281ad" title="inital setup of main.js and /test/index.html">inital setup of main.js and /test/index.html</a>)</p>
+
+<h2 id="first-test">First Test</h2>
+
+<h3 id="create-a-unit-test-in-testspecbowlinggamejs">Create a unit test in test/spec/BowlingGame.js</h3>
+
+<pre><code>cd /vagrant/www/test/spec &amp;&amp; touch BowlingGame.js
+cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
+</code></pre>
+
+<p>Add code to test/spec/BowlingGame.js</p>
+
+<pre><code>+// Bowling Game specs
++
++describe("Bowling Game Kata", function () {
++
++    describe("Gutter Game", function () {
++
++        it("should score zero", function () {
++            var game = new Game();
++        });
++
++    });
++
++});
+</code></pre>
+
+<p><code>git show 739c41</code> (<a href="https://github.com/pixelhandler/vagrant-dev-env/commit/739c41aece23a39becbe283e6bd9cee9ee31d204" title="added failing test for gutter game">added failing test for gutter game</a>)</p>
+
+<h3 id="execute-this-program-and-verify-that-you-get-an-error">Execute this program and verify that you get an error</h3>
+
+<pre><code>cd /vagrant/www/
+yeoman test
+</code></pre>
+
+<p>You should get a message "Can't find variable: Game"</p>
+
+<h3 id="pass-the-failing-test-by-adding-game-constructor">Pass the failing test, by adding Game constructor</h3>
+
+<p>Add code in app/scripts/Game.js</p>
+
+<pre><code>+define('game', function () {
++    var Game = function () {};
++
++    return Game;
++});
+</code></pre>
+
+<p>Add <code>game: 'Game'</code> to requirejs config in app/scripts/main.js</p>
+
+<pre><code> require.config({
+   paths: {
+     app: 'app',
++    game: 'Game',
+     jquery: 'vendor/jquery.min'
+   }
+ });
+</code></pre>
+
+<p>Update spec in test/spec/BowlingGame.js adding a <code>require</code> call for the Game constructor</p>
+
+<pre><code>     describe("Gutter Game", function () {
+
+         it("should score zero", function () {
+-            var game = new Game();
++            require(['game'], function (Game) {
++                var game = new Game();
++            });
+         });
+
+     });
+</code></pre>
+
+<h4 id="run-the-spec-yeoman-test-should-pass">Run the spec, <code>yeoman test</code> should PASS</h4>
+
+<p>You can also visit http://precise64.dev/test/</p>
+
+<p><code>git show a38d82</code> (<a href="https://github.com/pixelhandler/vagrant-dev-env/commit/a38d829b3da9fe4a0482ed7126b5c35d925c4bb5" title="correct error for undefined variable 'Game'">correct error for undefined variable 'Game'</a>)</p>
+
+<h3 id="a-gutter-game">A Gutter Game</h3>
+
+<p>Add an assertion to test/spec/BowlingGame.js</p>
+
+<pre><code>         it("should score zero", function () {
+             require(['game'], function (Game) {
+-                var game = new Game();
++                var game = new Game(),
++                    i = 0;
++
++                for (i; i &lt; 20; i ++) {
++                    game.roll(0);
++                }
++                expect(game.score()).to.equal(0);
+             });
+         });
+</code></pre>
+
+<p>Add some stub methods in app/scripts/Game.js</p>
+
+<pre><code> define('game', function () {
+     var Game = function () {};
+
++    Game.prototype.roll = function (pins) {
++        if (typeof pins !== 'number') {
++            throw new Error('Game.role() expects `pins` argument to be a number');
++        }
++    };
++
++    Game.prototype.score = function () {
++        return -1;
++    };
++
+     return Game;
+ });
+</code></pre>
+
+<h4 id="run-the-spec-yeoman-test-should-fail">Run the spec, <code>yeoman test</code> should FAIL</h4>
+
+<p>You should get an error message "expected -1 to equal 0"</p>
+
+<p><code>git show dcd504</code> (<a href="https://github.com/pixelhandler/vagrant-dev-env/commit/dcd504be665949e062794a01d069bf90e9c5354e" title="add failing test for gutter game, and stub roll and score methods">add failing test for gutter game, and stub roll and score methods</a>)</p>
+
+<h2 id="second-test">Second Test</h2>
+
+<h3 id="pass-failing-test-with-code-change-in-appscriptsgamejs">Pass failing test with code change in app/scripts/Game.js</h3>
+
+<pre><code> define('game', function () {
+-    var Game = function () {};
++    var Game = function () {
++        this._score = 0;
++    };
+
+     Game.prototype.roll = function (pins) {
+         if (typeof pins !== 'number') {
+             throw new Error('Game.role() expects `pins` argument to be a number');
+         }
++        this._score += pins;
+     };
+
+     Game.prototype.score = function () {
+-        return -1;
++        return this._score;
+     };
+
+     return Game;
+</code></pre>
+
+<h4 id="run-the-spec-yeoman-test-should-pass-2">Run the spec, <code>yeoman test</code> should PASS</h4>
+
+<p><code>git show e60494</code> (<a href="https://github.com/pixelhandler/vagrant-dev-env/commit/e6049469d2bee7b0b22a38590cb09ce2d6b6b401" title="pass test for gutter game">pass test for gutter game</a>)</p>
+
+<h3 id="refactor-test-moving-require-before-1st-describe-call">Refactor test moving <code>require</code> before 1st <code>describe</code> call</h3>
+
+<pre><code> // Bowling Game specs
++require(['game'], function (Game) {
+
+ describe("Bowling Game Kata", function () {
+
+     describe("Gutter Game", function () {
+
+         it("should score zero", function () {
+-            require(['game'], function (Game) {
+                 var game = new Game(),
+                     i = 0;
+
+@@ -13,9 +13,11 @@ describe("Bowling Game Kata", function () {
+                     game.roll(0);
+                 }
+                 expect(game.score()).to.equal(0);
+-            });
+         });
+
+     });
+
+ });
++
++});
+</code></pre>
+
+<p><code>git show 699f25</code> (<a href="https://github.com/pixelhandler/vagrant-dev-env/commit/699f259e2e693986b89865466d74ced6d2e43c2b" title="refactor spec file to add more tests using the Game constructor">refactor spec file to add more tests using the Game constructor</a>)</p>
+
+<h4 id="run-the-spec-yeoman-test-should-still-pass">Run the spec, <code>yeoman test</code> should still PASS</h4>
+
+<h3 id="add-new-test-for-scoring-a-game-of-all-20-rolls-only-hitting-1-pin">Add new test for scoring a game of all 20 rolls only hitting 1 pin</h3>
+
+<pre><code>     describe("Gutter Game", function () {
+
+         it("should score zero", function () {
+-                var game = new Game(),
+-                    i = 0;
++            var game = new Game(),
++                i = 0;
+
+-                for (i; i &lt; 20; i ++) {
+-                    game.roll(0);
+-                }
+-                expect(game.score()).to.equal(0);
++            for (i; i &lt; 20; i ++) {
++                game.roll(0);
++            }
++            expect(game.score()).to.equal(0);
++        });
++
++    });
++
++    describe("Game with every roll only hitting one pin", function () {
++
++        it("should score 20 given each roll hits 1 pin", function () {
++            var game = new Game(),
++                i = 0;
++
++            for (i; i &lt; 20; i ++) {
++                game.roll(1);
++            }
++            expect(game.score()).to.equal(20);
+         });
+
+     });
+</code></pre>
+
+<h4 id="run-the-spec-yeoman-test-should-pass-3">Run the spec, <code>yeoman test</code> should PASS</h4>
+
+<p><code>git show 80e0fc</code> (<a href="https://github.com/pixelhandler/vagrant-dev-env/commit/80e0fc428c0900d45c87a6f3e341951d19667c4c" title="add passing test for game with 20 rolls each hitting 1 pin">add passing test for game with 20 rolls each hitting 1 pin</a>)</p>
+
+<h2 id="third-test">Third Test</h2>
+
+<h3 id="refactor-testspecbowlinggamejs-to-make-test-more-dry">Refactor test/spec/BowlingGame.js to make test more DRY</h3>
+
+<p>Each test instantiates a game object, use a <code>beforeEach</code> method:</p>
+
+<pre><code> describe("Bowling Game Kata", function () {
+
++    function rollMany(rolls, pins) {
++        var i;
++
++        for (i = 0; i &lt; rolls; i++) {
++            this.roll(pins);
++        }
++    }
++
++    beforeEach(function () {
++        this.game = new Game();
++    });
++
+     describe("Gutter Game", function () {
+
+         it("should score zero", function () {
+-            var game = new Game(),
+-                i = 0;
+-
+-            for (i; i &lt; 20; i ++) {
+-                game.roll(0);
+-            }
+-            expect(game.score()).to.equal(0);
++            rollMany.call(this.game, 20, 0);
++            expect(this.game.score()).to.equal(0);
+         });
+
+     });
+@@ -20,13 +27,8 @@ describe("Bowling Game Kata", function () {
+     describe("Game with every roll only hitting one pin", function () {
+
+         it("should score 20 given each roll hits 1 pin", function () {
+-            var game = new Game(),
+-                i = 0;
+-
+-            for (i; i &lt; 20; i ++) {
+-                game.roll(1);
+-            }
+-            expect(game.score()).to.equal(20);
++            rollMany.call(this.game, 20, 1);
++            expect(this.game.score()).to.equal(20);
+         });
+
+     });
+</code></pre>
+
+<p><code>git show fd6098</code> (<a href="https://github.com/pixelhandler/vagrant-dev-env/commit/fd609804fbadc4246ad29b1d11d8dfd733b131a9" title="refactor spec file to make DRY, add helper functions">refactor spec file to make DRY, add helper functions</a>)</p>
+
+<h3 id="add-test-for-game-with-the-first-frame-as-a-spare">Add test for game with the first frame as a spare</h3>
+
+<pre><code>+    describe("Game with one spare", function () {
++
++        it("should score 20 given the first 3 rolls hit 5 pins", function () {
++            rollMany.call(this.game, 2, 5); // roll spare
++            this.game.roll(5);
++            rollMany.call(this.game, 17, 0);
++            expect(this.game.score()).to.equal(20);
++        });
++
++    });
+</code></pre>
+
+<h4 id="run-the-spec-yeoman-test-should-fail-2">Run the spec, <code>yeoman test</code> should FAIL</h4>
+
+<p>You should get an error message "expected 15 to equal 20"</p>
+
+<p><code>git show 1f23ba</code> (<a href="https://github.com/pixelhandler/vagrant-dev-env/commit/1f23ba2ef1845496ca573a9b1e882afac4a73d8d" title="add failing test for a game with one spare">add failing test for a game with one spare</a>)</p>
+
+<h3 id="note-incorrect-design-in-appscriptsgamejs">Note incorrect design in app/scripts/Game.js</h3>
+
+<pre><code>+    // TODO design is wrong, responsibilities are missplaced...
++
++    // TODO roll should not calculate score
+     Game.prototype.roll = function (pins) {
+         if (typeof pins !== 'number') {
+             throw new Error('Game.role() expects `pins` argument to be a number');
+@@ -10,6 +13,7 @@ define('game', function () {
+         this._score += pins;
+     };
+
++    // TODO score is not actually calculating value
+     Game.prototype.score = function () {
+         return this._score;
+     };
+</code></pre>
+
+<h3 id="skip-test-in-testspecbowlinggamejs">Skip test in test/spec/BowlingGame.js</h3>
+
+<pre><code>-    describe("Game with one spare", function () {
++    describe.skip("Game with one spare", function () {
+</code></pre>
+
+<p><code>git show 150160</code> (<a href="https://github.com/pixelhandler/vagrant-dev-env/commit/1501605282eaf01ca59a7e7a8c77579377e1ae8b" title="note design error with roll and score Game methods, skip new test for spare">note design error with roll and score Game methods, skip new test for spare</a>)</p>
+
+<h3 id="refactor-roll-and-score-game-methods-in-appscriptsgamejs">Refactor roll and score Game methods in app/scripts/Game.js</h3>
+
+<pre><code> define('game', function () {
+     var Game = function () {
+-        this._score = 0;
++        this._currentRoll = 0;
++        this._rolls = [];
++        this._spares = [];
+     };
+
+-    // TODO design is wrong, responsibilities are missplaced...
+-
+-    // TODO roll should not calculate score
+     Game.prototype.roll = function (pins) {
+         if (typeof pins !== 'number') {
+             throw new Error('Game.role() expects `pins` argument to be a number');
+         }
+-        this._score += pins;
++        this._rolls[this._currentRoll++] = pins;
+     };
+
+-    // TODO score is not actually calculating value
+     Game.prototype.score = function () {
+-        return this._score;
++        var score = 0, frameIdx = 0;
++
++        for (frameIdx; frameIdx &lt; this._rolls.length; frameIdx++) {
++            if (this._isSpare(frameIdx)) {
++                score += 10 + this._rolls[frameIdx + 2];
++                frameIdx ++;
++            } else {
++                score += this._rolls[frameIdx];
++            }
++        }
++
++        return score;
++    };
++
++    Game.prototype._isSpare = function (frameIdx) {
++        var isSpare = (this._rolls[frameIdx] + this._rolls[frameIdx + 1] === 10),
++            isLastRollSpare,
++            i = 0;
++
++        if (isSpare) {
++            if (this._rolls.length) {
++                for (i; i &lt; this._spares.length; i++) {
++                    if (this._spares[i] === frameIdx - 1) {
++                        isLastRollSpare = true;
++                    }
++                }
++            }
++            if (!isLastRollSpare) {
++                this._spares.push(frameIdx);
++            } else {
++                isSpare = false;
++            }
++        }
++
++        return isSpare;
+     };
+
+     return Game;
+</code></pre>
+
+<p>The method <code>_isSpare</code> needed some validation to check if a roll is the first roll in a frame with a spare; added a property to keep list of spares, a bowler cannon roll two times in a row and both rolls be a spare.</p>
+
+<h4 id="run-the-spec-yeoman-test-should-pass-4">Run the spec, <code>yeoman test</code> should PASS</h4>
+
+<p><code>git show cfa24a</code> (<a href="https://github.com/pixelhandler/vagrant-dev-env/commit/cfa24aacd9b2ea6b97ff12692dfcf1158635afb8" title="pass tests for rolling and scoring spares">pass tests for rolling and scoring spares</a>)</p>
+
+<h2 id="fourth-test">Fourth Test</h2>
+
+<p>Add helper method for testing a strike in test/spec/BowlingGame.js</p>
+
+<pre><code>+    function rollStrike() {
++        this.roll(10);
++    }
+</code></pre>
+
+<p>Add test for scoring with one strike and two following rolls each hitting 4 pins</p>
+
+<pre><code>+    describe("Game with one strike", function () {
++
++        it("should score 26 given a strike on the 1st roll and 2 following rolls that hit 4 pins", function () {
++            rollStrike.call(this.game);
++            rollMany.call(this.game, 2, 4);
++            rollMany.call(this.game, 17, 0);
++            expect(this.game.score()).to.equal(26);
++        });
+</code></pre>
+
+<h4 id="run-the-spec-yeoman-test-should-fail-3">Run the spec, <code>yeoman test</code> should FAIL</h4>
+
+<p>You should get a message "expected 18 to equal 26"</p>
+
+<p><code>git show 75a1a3</code> (<a href="https://github.com/pixelhandler/vagrant-dev-env/commit/75a1a37e90ad58e1e57c914013eb1f5db78f48b5" title="add failing test for rolling a strike">add failing test for rolling a strike</a>)</p>
+
+<h3 id="pass-the-failing-test-with-code-edits-in-appscriptsgamejs">Pass the failing test with code edits in app/scripts/Game.js</h3>
+
+<p>Refactor score method, add code to score a strike  </p>
+
+<pre><code>         for (frameIdx; frameIdx &lt; this._rolls.length; frameIdx++) {
+-            if (this._isSpare(frameIdx)) {
++            if (this._isStrike(frameIdx)) {
++                score += this._scoreStrike(frameIdx);
++            } else if (this._isSpare(frameIdx)) {
+                 score += 10 + this._rolls[frameIdx + 2];
+                 frameIdx ++;
+</code></pre>
+
+<p>Add method to check if a roll is a strike; add a method to score the frame value for a strike</p>
+
+<pre><code>+    Game.prototype._isStrike = function (frameIdx) {
++        return (this._rolls[frameIdx] === 10);
++    };
++
++    Game.prototype._scoreStrike = function (frameIdx) {
++        var score = 0, i = 1, bonusFrames = 2;
++
++        if (frameIdx &lt;= 9) {
++            score += 10;
++            for (i; i &lt;= bonusFrames; i++) {
++                if (this._rolls[frameIdx + i]) {
++                    score += this._rolls[frameIdx + i];
++                }
++            }
++        }
++
++        return score;
++    };
++
+     return Game;
+</code></pre>
+
+<h4 id="run-the-spec-yeoman-test-should-pass-both-cases-for-rolling-a-spare-and-pass-for-scoring-a-strike">Run the spec, <code>yeoman test</code> should PASS both cases for rolling a spare and Pass for scoring a strike</h4>
+
+<p><code>git show 07d79c</code> (<a href="https://github.com/pixelhandler/vagrant-dev-env/commit/07d79cc04e954f03b8aac212dff0246e22e872be" title="pass test for rolling and scoring a strike">pass test for rolling and scoring a strike</a>)</p>
+
+<h2 id="fifth-test">Fifth Test</h2>
+
+<h3 id="add-test-for-rolling-perfect-game-of-300-in-testspecbowlinggamejs">Add test for rolling perfect game of 300 in test/spec/BowlingGame.js</h3>
+
+<pre><code>+    describe("Perfect game", function () {
++
++        it("should score 300 for with 12 strikes in a row", function () {
++            rollMany.call(this.game, 12, 10);
++            expect(this.game.score()).to.equal(300);
++        });
++
++    });
+</code></pre>
+
+<h4 id="run-the-spec-yeoman-test-should-pass-5">Run the spec, <code>yeoman test</code> should PASS</h4>
+
+<h3 id="add-one-more-test-in-testspecbowlinggamejs">Add one more test in test/spec/BowlingGame.js</h3>
+
+<p>As a sanity check, test a complete game with all kinds of rolls </p>
+
+<pre><code>+    describe("Beginner's Game", function () {
++
++        it("should score 110", function () {
++            var game = this.game;
++
++            // frame 1, score: 9
++            game.roll(7);
++            game.roll(2);
++            // frame 2, score: 16
++            game.roll(6);
++            game.roll(1);
++            // frame 3, score: 26 + 3 = 29
++            rollSpare.call(game);
++            // frame 4, score: 36
++            game.roll(3);
++            game.roll(4);
++            // frame 5, score: 46 + 10 = 56
++            rollSpare.call(game);
++            // frame 6, score: 66 + 5 + 3 = 74
++            rollStrike.call(game);
++            // frame 7, score: 82
++            game.roll(5);
++            game.roll(3);
++            // frame 8, score: 87
++            game.roll(5);
++            game.roll(0);
++            // frame 9, score: 95
++            game.roll(6);
++            game.roll(2);
++            // frame 10, score: 105 + 5 = 110
++            game.roll(7);
++            game.roll(3);
++            game.roll(5);
++        });
++
++    });
+</code></pre>
+
+<h4 id="run-the-spec-yeoman-test-should-pass-6">Run the spec, <code>yeoman test</code> should PASS</h4>
+
+<p><code>git show d4f863</code> (<a href="https://github.com/pixelhandler/vagrant-dev-env/commit/d4f86323fbcfcdab984a53047f6adba2cf47b79a" title="add a sample game test that should score 110, it passes">add a sample game test that should score 110, it passes</a>)</p>
+
+<h2 id="reference-links">Reference / Links</h2>
+
+<ol>
+<li><a href="http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata" title="The Bowling Game Kata">Uncle Bob's The Bowling Game Kata</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Ten-pin_bowling" title="Ten pin bowling game Wikipedia article">Ten-pin bowling game Wikipedia article</a></li>
+<li><a href="http://www.bowlingindex.com/instruction/scoring.htm" title="Scoring a bowling game">Instructions on scoring with game examples</a></li>
+<li><a href="http://slocums.homestead.com/gamescore.html" title="The Basics of Keeping Score">The Basics of Keeping Score</a></li>
+<li><a href="https://github.com/yeoman/yeoman" title="Yeoman source code">Yeoman.io</a></li>
+<li><a href="http://visionmedia.github.com/mocha/" title="Mocha Test Framework">Mocha Test Framewor</a></li>
+<li><a href="https://github.com/chaijs/chai" title="Chai Assertion Library">Chai assertion library</a></li>
+<li><a href="http://requirejs.org/" title="RequireJS Library for dependency management and build optimization">RequireJS</a></li>
+<li><a href="https://github.com/pixelhandler/vagrant-dev-env" title="Vagrant Development Environment">Vagrant dev box</a></li>
+<li><a href="http://blog.dannorth.net/introducing-bdd/" title="Behavior-Driven Development">Behavior-Driven Development</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Test-driven_development" title="Test-Driven Development">Test-Driven Development</a></li>
+</ol>
+
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn-1">
+<p>Uncle Bob's The Bowling Game Kata.&nbsp;<a href="#fnref-1" class="footnoteBackLink" title="Jump back to footnote 1 in the text.">&#8617;</a></p>
+</li>
+
+<li id="fn-2">
+<p>Ten-pin bowling game Wikipedia article.&nbsp;<a href="#fnref-2" class="footnoteBackLink" title="Jump back to footnote 2 in the text.">&#8617;</a></p>
+</li>
+
+<li id="fn-3">
+<p>Instructions on scoring with game examples.&nbsp;<a href="#fnref-3" class="footnoteBackLink" title="Jump back to footnote 3 in the text.">&#8617;</a></p>
+</li>
+</ol>
+</div>
 </body>
-</html>
