@@ -1,15 +1,33 @@
-# Bowling Game Kata using Mocha Test framework and Yeoman.io
+# Bowling Game Kata using Mocha (BDD) Test framework and Yeoman
 
-## This Tutorial Covers…
+## About this Tutorial…
 
-1.  Using [Mocha test framework][mochasite] with behavior-driven development ([BDD][BDD])  
-2.  Based on [Uncle Bob's "Bowling Game" kata][TheBowlingGameKata] 
+This tutorial was created in an effort to learn more about using new tools like Yeoman and the Mocha test framework using [Node.js][nodejs] that can be executed in a headless browser environment ([phantomjs][phantomjs]), and to assist other engineers in learning the practice of behavior driven development. Basically, this article is a result of following the ['kata' by Uncle Bob][TheBowlingGameKata] [^1] to author a simple program in JavaScript that scores a [game of ten-pin bowling][TenPinBowlingGame].
+
+Inspired my Robert Martin's 'Bowling Game Kata' (a programmer's exercise) I followed Uncle Bob's presentation of the test-driven development exercise to write a program that scores a bowling game and documented the code written in JavaScript. This tutorial content is not my own but rather an exercise of making the Bowling Game Kata my own practice, so I've borrowed the kata from Uncle Bob along with his class diagrams and ten-pin bowling graphic. The headings in this tutorial from the 'Quick Design Session' through the 'Fifth Test' make up the essence of Uncle Bob's presentation. Thank you [Uncle Bob][unclebob] for putting together an excellent exercise!
+
+[^1]: Uncle Bob's The Bowling Game Kata.
+
+Covered in this tutorial:
+
+1.  Using the [Mocha test framework][mochasite] with behavior-driven development ([BDD][BDD])  
+2.  [Uncle Bob's "Bowling Game" kata][TheBowlingGameKata] in JavaScript
 3.  Quickly setting up your development environment with [Vagrant, VirtualBox][vagrant-dev-box] and [Yeoman][yeomansite] 
-3.  First, write [test code][chaisource] to describe the expected behavior that fail  
-4.  Next, write applicaiton code to pass the tests  
-5.  **The result**: a program that [scores a game of bowling][scoringbasics]
+3.  First, writing [tests][chaibdd] to describe the expected behaviors which fail  
+4.  Next, writing application code which passes the tests  
+5.  The result: a program that [scores a game of bowling][scoringbasics], and better BDD skills
 
-### TDD Process
+Note: The code examples in this tutorial will use `git diff` style indicators, lines with the first character `+`/`-` show an action to add(+) or remove(-) a line of code.
+
+### Test-driven development (TDD)
+
+A software development process that relies on the repetition of a very short development cycle: **first** the developer writes a **failing automated test case** that defines a desired improvement or new function, **then** produces **code to pass that test** and finally refactors the new code to acceptable standards.
+
+See: [http://en.wikipedia.org/wiki/Test-driven\_development][TDD]
+
+*“Test-driven development constantly repeats the steps of adding test cases that fail, passing them, and refactoring. Receiving the expected test results at each stage reinforces the programmer’s mental model of the code, boosts confidence and increases productivity.”*
+
+#### The TDD Process
 
 1. Add a test
 2. Run all tests and see if the new one fails
@@ -20,29 +38,13 @@
 
 Basically *[Lather, Rinse, Repeat][TDD]*
 
-*“Test-driven development constantly repeats the steps of adding test cases that fail, passing them, and refactoring. Receiving the expected test results at each stage reinforces the programmer’s mental model of the code, boosts confidence and increases productivity.”*
+#### Behavior-driven development (BDD)
 
-### Test-driven development (TDD)
-
-A software development process that relies on the repetition of a very short development cycle: **first** the developer writes a **failing automated test case** that defines a desired improvement or new function, **then** produces **code to pass that test** and finally refactors the new code to acceptable standards.
-
-See: [http://en.wikipedia.org/wiki/Test-driven\_development][TDD]
-
-### Behavior-driven development (BDD)
-
-Introducing BDD : [http://blog.dannorth.net/introducing-bdd/][BDD]
+See: Introducing BDD : [http://blog.dannorth.net/introducing-bdd/][BDD]
 
 Use language/terminology that everyone on the project understands; using a pattern (e.g. Given, When, Then.) to test expected behavior.
 
 *“Developers discovered it could do at least some of their documentation for them, so they started to write test methods that were real sentences.”*
-
-# Notes for Mocha Testing Kata
-
-We will write tests first to author a simple program in JavaScript to score a [game of ten-pin bowling][TenPinBowlingGame]. This exercise is based on a ['kata' by Uncle Bob][TheBowlingGameKata]. [^1]
-
-[^1]: Uncle Bob's The Bowling Game Kata.
-
-Note: The code examples in this tutorial will use `git diff` style indicators, lines with the first charator `+`/`-` show an action to add(+) or remove(-) a line of code.
 
 ## Vagrant Development Environment
 
@@ -695,7 +697,7 @@ As a sanity check, test a complete game with all kinds of rolls
 4. [The Basics of Keeping Score][scoringbasics]
 5. [Yeoman.io][yeomansource]
 6. [Mocha Test Framewor][mochasite]
-7. [Chai assertion library][chaisource]
+7. [Chai assertion library][chaibdd]
 8. [RequireJS][requirejs]
 9. [Vagrant dev box][vagrant-dev-box]
 10. [Behavior-Driven Development][BDD]
@@ -731,11 +733,13 @@ As a sanity check, test a complete game with all kinds of rolls
 
 [c14]: https://github.com/pixelhandler/vagrant-dev-env/commit/d4f86323fbcfcdab984a53047f6adba2cf47b79a "add a sample game test that should score 110, it passes"
 
-[chaisource]: https://github.com/chaijs/chai "Chai Assertion Library"
+[chaibdd]: http://chaijs.com/api/bdd/ "Chai BDD Assertion Library"
 
 [mochasite]: http://visionmedia.github.com/mocha/ "Mocha Test Framework"
 
-[vagrant-dev-box]: https://github.com/pixelhandler/vagrant-dev-env "Vagrant Development Environment"
+[nodejs]: http://nodejs.org/ "Node.js"
+
+[phantomjs]: http://phantomjs.org/ "PhantomJS - headless WebKit w/ JavaScript API"
 
 [requirejs]: http://requirejs.org/ "RequireJS Library for dependency management and build optimization"
 
@@ -748,6 +752,10 @@ As a sanity check, test a complete game with all kinds of rolls
 [TheBowlingGameKata]: http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata "The Bowling Game Kata"
 
 [TDD]: http://en.wikipedia.org/wiki/Test-driven_development "Test-Driven Development"
+
+[unclebob]: https://twitter.com/unclebobmartin "Uncle Bob Martin on Twitter"
+
+[vagrant-dev-box]: https://github.com/pixelhandler/vagrant-dev-env "Vagrant Development Environment"
 
 [yeomansource]: https://github.com/yeoman/yeoman "Yeoman source code"
 
