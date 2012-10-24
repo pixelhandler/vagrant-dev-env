@@ -78,7 +78,7 @@ For more info see [Ten-pin bowling game Wikipedia article][TenPinBowlingGame] [^
 [^2]: Ten-pin bowling game Wikipedia article.
 [^3]: Instructions on scoring with game examples.
 
-[10frames]: ./app/images/ten-pins.jpg "Uncle Bob game"
+[10frames]: https://raw.github.com/pixelhandler/vagrant-dev-env/bowling/www/app/images/ten-pins.jpg "Uncle Bob game"
 
 ## The Requirements
 
@@ -103,12 +103,12 @@ Write a class named “Game” that has two methods:
 5. The score function must iterate through all the frames, and calculate all their scores.  ![Score method][des5]
 6. The score for a spare or a strike depends on the frame’s successor  ![Next frame][des6]
 
-[des1]: ./app/images/game_class.png "Game class"
-[des2]: ./app/images/frame_class.png "Frame class"
-[des3]: ./app/images/roll_class.png "Roll class"
-[des4]: ./app/images/tenth_frame_class.png "Tenth frame"
-[des5]: ./app/images/frame_class_score.png "Score method"
-[des6]: ./app/images/frame_class_next.png "Next frame"
+[des1]: https://raw.github.com/pixelhandler/vagrant-dev-env/bowling/www/app/images/game_class.png "Game class"
+[des2]: https://raw.github.com/pixelhandler/vagrant-dev-env/bowling/www/app/images/frame_class.png "Frame class"
+[des3]: https://raw.github.com/pixelhandler/vagrant-dev-env/bowling/www/app/images/roll_class.png "Roll class"
+[des4]: https://raw.github.com/pixelhandler/vagrant-dev-env/bowling/www/app/images/tenth_frame_class.png "Tenth frame"
+[des5]: https://raw.github.com/pixelhandler/vagrant-dev-env/bowling/www/app/images/frame_class_score.png "Score method"
+[des6]: https://raw.github.com/pixelhandler/vagrant-dev-env/bowling/www/app/images/frame_class_next.png "Next frame"
 
 
 ## Begin
