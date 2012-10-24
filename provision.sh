@@ -26,7 +26,27 @@ apt-packages-install     \
   curl                   \
   ack-grep               \
   chrpath                \
-  inotify-tools
+  inotify-tools          \
+  build-essential        \
+  openssl                \
+  automake               \
+  autoconf               \
+  libtool                \
+  subversion             \
+  pkg-config             \
+  bison                  \
+  libreadline6           \
+  libreadline6-dev       \
+  zlib1g                 \
+  zlib1g-dev             \
+  libssl-dev             \
+  libyaml-dev            \
+  libsqlite3-dev         \
+  sqlite3                \
+  libxml2-dev            \
+  libxslt-dev            \
+  libc6-dev              \
+  ncurses-dev  
 
 dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
 
