@@ -4,10 +4,6 @@
 
 This tutorial was created in an effort to learn more about using new tools like Yeoman and the Mocha test framework using [Node.js][nodejs] that can be executed in a headless browser environment ([phantomjs][phantomjs]), and to assist other engineers in learning the practice of behavior driven development. Basically, this article is a result of following the ['kata' by Uncle Bob][TheBowlingGameKata] [^1] to author a simple program in JavaScript that scores a [game of ten-pin bowling][TenPinBowlingGame].
 
-Inspired my Robert Martin's 'Bowling Game Kata' (a programmer's exercise) I followed Uncle Bob's presentation of the test-driven development exercise to write a program that scores a bowling game and documented the code written in JavaScript. This tutorial content is not my own but rather an exercise of making the Bowling Game Kata my own practice, so I've borrowed the kata from Uncle Bob along with his class diagrams and ten-pin bowling graphic. The headings in this tutorial from the 'Quick Design Session' through the 'Fifth Test' make up the essence of Uncle Bob's presentation. Thank you [Uncle Bob][unclebob] for putting together an excellent exercise!
-
-[^1]: Uncle Bob's The Bowling Game Kata.
-
 Covered in this tutorial:
 
 1.  Using the [Mocha test framework][mochasite] with behavior-driven development ([BDD][BDD])  
@@ -16,6 +12,8 @@ Covered in this tutorial:
 3.  First, writing [tests][chaibdd] to describe the expected behaviors which fail  
 4.  Next, writing application code which passes the tests  
 5.  The result: a program that [scores a game of bowling][scoringbasics], and better BDD skills
+
+Inspired my Robert Martin's 'Bowling Game Kata' (a programmer's exercise) I followed Uncle Bob's presentation of the test-driven development exercise to write a program that scores a bowling game and documented the code written in JavaScript. This tutorial content is not my own but rather an exercise of making the Bowling Game Kata my own practice, so I've borrowed the kata from Uncle Bob along with his class diagrams and ten-pin bowling graphic. The headings in this tutorial from the 'Quick Design Session' through the 'Fifth Test' make up the essence of Uncle Bob's presentation. Thank you [Uncle Bob][unclebob] for putting together an excellent exercise!
 
 Note: The code examples in this tutorial will use `git diff` style indicators, lines with the first character `+`/`-` show an action to add(+) or remove(-) a line of code.
 
@@ -61,8 +59,6 @@ vagrant up
 
 Update your /etc/hosts file, add: `192.168.50.4 precise64` the vagrant/virtual box will use http://precise64/ or http://192.168.50.4/ for the www root.
 
-Now you should have /vagrant/www/app and vagrant/www/test directories this is where we will write some code in.
-
 ## Scoring Bowling
 
 ![Complete game][10frames]
@@ -76,9 +72,6 @@ A strike is when the player knocks down all 10 pins on his first try.  The bonus
 In the tenth frame a player who rolls a spare or strike is allowed to roll the extra balls to complete the frame.  However no more than three balls can be rolled in tenth frame.
 
 For more info see [Ten-pin bowling game Wikipedia article][TenPinBowlingGame] [^2] and article for [Instructions on scoring with game examples][scoringinstructions] [^3]
-
-[^2]: Ten-pin bowling game Wikipedia article.
-[^3]: Instructions on scoring with game examples.
 
 [10frames]: https://raw.github.com/pixelhandler/vagrant-dev-env/bowling/www/app/images/ten-pins.jpg "Uncle Bob game"
 
@@ -132,6 +125,8 @@ Issue some vagrant and yeoman commands to get started
 	yeoman server
 	# see http://precise64.dev:3501/ 
 	# stop yeoman server with control-c, `exit` (vagrant ssh); or stay in bowlingkata and use vimvim
+
+Now you should have /vagrant/www/app and vagrant/www/test directories this is where we will write some code in.
 
 Edit `index.html` file in test directory
 
@@ -760,3 +755,7 @@ As a sanity check, test a complete game with all kinds of rolls
 [yeomansource]: https://github.com/yeoman/yeoman "Yeoman source code"
 
 [yeomansite]: http://yeoman.io/ "Yeoman - set of tools"
+
+[^1]: Uncle Bob's The Bowling Game Kata.
+[^2]: Ten-pin bowling game Wikipedia article.
+[^3]: Instructions on scoring with game examples.
