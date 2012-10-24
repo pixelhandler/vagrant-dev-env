@@ -2,13 +2,11 @@
 
 # install vim
 apt-packages-install     \
-  vim                    \
   gpm                    \
   ctags                  \
+  vim                    \
   vim-scripts            \
-  vim-doc                \
-  build-essential        \
-
+  vim-doc
 
 # Vim config - see: https://github.com/pixelhandler/vim-config
 
