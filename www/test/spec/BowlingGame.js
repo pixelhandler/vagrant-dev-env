@@ -28,7 +28,7 @@ describe("Bowling Game Kata", function () {
 
         it("should score zero", function () {
             rollMany.call(this.game, 20, 0);
-            expect(this.game.score()).to.equal(0);
+            expect(this.game.score()).toEqual(0);
         });
 
     });
@@ -37,7 +37,7 @@ describe("Bowling Game Kata", function () {
 
         it("should score 20 given each roll hits 1 pin", function () {
             rollMany.call(this.game, 20, 1);
-            expect(this.game.score()).to.equal(20);
+            expect(this.game.score()).toEqual(20);
         });
 
     });
@@ -48,7 +48,7 @@ describe("Bowling Game Kata", function () {
             rollSpare.call(this.game)
             this.game.roll(5);
             rollMany.call(this.game, 17, 0);
-            expect(this.game.score()).to.equal(20);
+            expect(this.game.score()).toEqual(20);
         });
         
         it("should score 19 given a spare and 2 following rolls of 3", function () {
@@ -56,7 +56,7 @@ describe("Bowling Game Kata", function () {
             this.game.roll(3);
             this.game.roll(3);
             rollMany.call(this.game, 16, 0);
-            expect(this.game.score()).to.equal(19);
+            expect(this.game.score()).toEqual(19);
         });
 
     });
@@ -67,7 +67,7 @@ describe("Bowling Game Kata", function () {
             rollStrike.call(this.game);
             rollMany.call(this.game, 2, 4);
             rollMany.call(this.game, 17, 0);
-            expect(this.game.score()).to.equal(26);
+            expect(this.game.score()).toEqual(26);
         });
 
     });
@@ -76,7 +76,7 @@ describe("Bowling Game Kata", function () {
 
         it("should score 300 for with 12 strikes in a row", function () {
             rollMany.call(this.game, 12, 10);
-            expect(this.game.score()).to.equal(300);
+            expect(this.game.score()).toEqual(300);
         });
 
     });

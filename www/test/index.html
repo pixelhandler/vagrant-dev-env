@@ -1,24 +1,21 @@
 <!doctype html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Mocha Spec Runner</title>
-  <link rel="stylesheet" href="lib/mocha/mocha.css">
+  <meta name="viewport" content="width=device-width">
+  <title>Jasmine Test Runner</title>
+  <link rel="stylesheet" href="lib/jasmine/jasmine.css" type="text/css" charset="utf-8">
 </head>
 <body>
-  <div id="mocha"></div>
-
-  <script src="lib/mocha/mocha.js"></script>
-  <script>mocha.setup('bdd')</script>
-  <script src="lib/chai.js"></script>
-  <script>expect = chai.expect</script>
+  <script src="lib/jasmine/jasmine.js"></script>
+  <script src="lib/jasmine/console-runner.js"></script>
+  <script src="lib/jasmine/jasmine-html.js"></script>
   <script data-main="../app/scripts/main" src="../app/scripts/vendor/require.js"></script>
-
   <script>
     require(['../../test/spec/BowlingGame'], function () {
-      require(['../../test/runner/mocha']);
+      require(['../../test/runner/jasmine']);
     });
   </script>
-
 </body>
 </html>
