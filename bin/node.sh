@@ -24,3 +24,5 @@ npm install -g expect.js
 npm install -g should
 npm install -g chai
 
+# task tools
+npm install -g grunt
