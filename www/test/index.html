@@ -12,11 +12,14 @@
   <script>mocha.setup('bdd')</script>
   <script src="lib/chai.js"></script>
   <script>expect = chai.expect</script>
-  <script data-main="../app/scripts/main" src="../app/scripts/vendor/require.js"></script>
+  <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
 
   <script>
-    require(['../../test/spec/BowlingGame'], function () {
-      require(['../../test/runner/mocha']);
+    require(['../spec'], function () {
+      // new callstack needed for runner
+      window.setTimeout(function () {
+        require(['../runner/mocha']);
+      },100);
     });
   </script>
 

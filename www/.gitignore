@@ -1,2 +1,4 @@
 temp
 dist
+app-cov/
+coverage.html
