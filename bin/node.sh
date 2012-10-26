@@ -38,3 +38,6 @@ else
   ./configure && make && make install
   echo 'node-jscoverage installed from git source '
 fi
+
+# RequireJS / r.js
+npm install -g requirejs
