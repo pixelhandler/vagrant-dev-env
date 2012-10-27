@@ -1,1 +1,1 @@
-require(['../spec/BowlingGame']);
+require(['gameSpec']);

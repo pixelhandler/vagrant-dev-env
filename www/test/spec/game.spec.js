@@ -1,5 +1,5 @@
 // Bowling Game specs
-require(['game'], function (Game) {
+define('gameSpec', ['game'], function (Game) {
 
 describe("Bowling Game Kata", function () {
 
@@ -50,7 +50,7 @@ describe("Bowling Game Kata", function () {
             rollMany.call(this.game, 17, 0);
             expect(this.game.score()).to.equal(20);
         });
-        
+
         it("should score 19 given a spare and 2 following rolls of 3", function () {
             rollSpare.call(this.game)
             this.game.roll(3);
@@ -81,7 +81,7 @@ describe("Bowling Game Kata", function () {
 
     });
 
-    describe("Beginner's Game", function () {
+    describe.skip("Beginner's Game", function () {
 
         it("should score 110", function () {
             var game = this.game;
