@@ -1,13 +1,14 @@
 ({
-    appDir: "./test",
-    baseUrl: "./spec",
-    dir: "./build",
-    mainConfigFile: './app/scripts/main.js',
+    appDir: "test",
+    baseUrl: ".",
+    dir: "build",
+    mainConfigFile: 'app/scripts/main.js',
     optimize: "none",
     paths: {
-        spec: '../spec',
-        gameSpec: 'game.spec',
-        game: '../../app/scripts/Game'
+        spec: 'spec',
+        gameSpec: 'spec/game.spec',
+        game: 'scripts/Game',
+        runner: 'runner/mocha'
     },
     name: 'spec',
     exclude: [

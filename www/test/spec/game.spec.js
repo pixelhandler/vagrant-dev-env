@@ -1,5 +1,5 @@
 // Bowling Game specs
-define('gameSpec', ['game'], function (Game) {
+define(['game'], function (Game) {
 
 describe("Bowling Game Kata", function () {
 
@@ -81,7 +81,7 @@ describe("Bowling Game Kata", function () {
 
     });
 
-    describe.skip("Beginner's Game", function () {
+    describe("Beginner's Game", function () {
 
         it("should score 110", function () {
             var game = this.game;

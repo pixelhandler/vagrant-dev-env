@@ -1,4 +1,4 @@
-define('game', function () {
+define(function () {
     var Game = function () {
         this._currentRoll = 0;
         this._rolls = [];

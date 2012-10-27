@@ -7,6 +7,29 @@
 </head>
 <body>
   <div id="mocha"></div>
-  <script src="build/almond.js"></script>
+
+  <script src="lib/mocha/mocha.js"></script>
+  <script>mocha.setup('bdd')</script>
+  <script src="lib/chai.js"></script>
+  <script>expect = chai.expect</script>
+  <script src="scripts/vendor/require.js"></script>
+
+  <script>
+    require.config({
+        paths: {
+            spec: 'spec',
+            gameSpec: 'spec/game.spec',
+            game: 'scripts/Game',
+            runner: 'runner/mocha'
+        },
+    });
+    require(['spec'], function () {
+      // new callstack needed for runner
+      window.setTimeout(function () {
+        require(['runner']);
+      },100);
+    });
+  </script>
+
 </body>
 </html>
