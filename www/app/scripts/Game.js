@@ -1,4 +1,5 @@
-define(function () {
+//define(function () {
+
     var Game = function () {
         this._currentRoll = 0;
         this._rolls = [];
@@ -71,5 +72,7 @@ define(function () {
         return score;
     };
 
-    return Game;
-});
+//    return Game;
+//});
+
+    module.exports = Game;

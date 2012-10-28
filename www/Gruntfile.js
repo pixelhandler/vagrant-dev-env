@@ -47,8 +47,26 @@ module.exports = function( grunt ) {
     },
 
     // headless testing through PhantomJS
+    // Setup mocha with `options`.
+    // Options:
+    //   - `ui` name "bdd", "tdd", "exports" etc
+    //   - `reporter` reporter instance, defaults to `mocha.reporters.Dot`
+    //      `mocha --reporters`
+    //   - `globals` array of accepted globals
+    //   - `timeout` timeout in milliseconds
+    //   - `slow` milliseconds to wait before considering a test slow
+    //   - `ignoreLeaks` ignore global leaks
+    //   - `grep` string or regexp to filter tests with
+    //
+    // @param {Object} options
     mocha: {
-      all: ['test/**/*.html']
+      all: ['test/**/!(build).html'],
+      build: {
+        src: [ 'test/build.html' ],
+        options: {
+          ignoreLeaks: false
+        }
+      }
     },
 
     // default watch configuration
@@ -71,7 +89,7 @@ module.exports = function( grunt ) {
           'app/images/**/*',
           'test/*.html',
           'test/spec/*.js',
-          'test/*.js' 
+          'test/*.js'
         ],
         tasks: 'reload'
       }

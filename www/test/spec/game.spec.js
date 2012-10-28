@@ -1,5 +1,8 @@
 // Bowling Game specs
-define(['game'], function (Game) {
+//define(['game'], function (Game) {
+var Game = require('../scripts-cov/Game');
+var chai = require('chai');
+expect = chai.expect;
 
 describe("Bowling Game Kata", function () {
 
@@ -120,4 +123,4 @@ describe("Bowling Game Kata", function () {
 
 });
 
-});
+//});

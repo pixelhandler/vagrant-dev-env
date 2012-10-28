@@ -11,7 +11,8 @@ test:
 	@yeoman test
 
 coverage:
+	@rm -fr app-cov
 	@jscoverage app app-cov
-	@mocha -R html-cov > coverage.html
+	@mocha test/spec/game.spec.js -R html-cov > coverage.html
 
 .PHONY: test
