@@ -3,5 +3,6 @@ dist
 app-cov/
 coverage.html
 components/
+node_modules/
 build/
-test/build/
+test/build/*
