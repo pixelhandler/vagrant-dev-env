@@ -115,7 +115,6 @@ describe("Bowling Game Kata", function () {
             game.roll(3);
             game.roll(5);
             expect(this.game.score()).toEqual(110);
-
         });
 
     });
