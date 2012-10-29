@@ -2,3 +2,7 @@ temp
 dist
 app-cov/
 coverage.html
+components/
+build/
+test/build/
+node_modules/
