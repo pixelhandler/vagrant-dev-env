@@ -31,26 +31,7 @@
     };
 
     Game.prototype._isSpare = function (frameIdx) {
-        var isSpare = (this._rolls[frameIdx] + this._rolls[frameIdx + 1] === 10),
-            isLastRollSpare,
-            i = 0;
-
-        if (isSpare) {
-            if (this._rolls.length) {
-                for (i; i < this._spares.length; i++) {
-                    if (this._spares[i] === frameIdx - 1) {
-                        isLastRollSpare = true;
-                    }
-                }
-            }
-            if (!isLastRollSpare) {
-                this._spares.push(frameIdx);
-            } else {
-                isSpare = false;
-            }
-        }
-
-        return isSpare;
+        return (this._rolls[frameIdx] + this._rolls[frameIdx + 1] === 10);
     };
 
     Game.prototype._isStrike = function (frameIdx) {

@@ -29,6 +29,13 @@ describe("Bowling Game Kata", function () {
 
     describe("Gutter Game", function () {
 
+        it("should throw error given a call to roll() with argument that is not a number", function () {
+            this.game.badRoll = function () {
+                this.roll('strike');
+            };
+            expect(this.game.badRoll).to.throw(Error);
+        });
+
         it("should score zero", function () {
             rollMany.call(this.game, 20, 0);
             expect(this.game.score()).to.equal(0);
