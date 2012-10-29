@@ -13,7 +13,7 @@ define(function () {
     };
 
     Game.prototype.score = function () {
-        var score = 0, frameIdx = 0;
+        var score = 0, frameIdx = 0, bonusRoll = this._bonusRoll();
 
         for (frameIdx; frameIdx < this._rolls.length; frameIdx++) {
             if (this._isStrike(frameIdx)) {
@@ -22,7 +22,9 @@ define(function () {
                 score += 10 + this._rolls[frameIdx + 2];
                 frameIdx ++;
             } else {
-                score += this._rolls[frameIdx];
+                if (!bonusRoll || bonusRoll && frameIdx < bonusRoll) {
+                    score += this._rolls[frameIdx];
+                }
             }
         }
 
@@ -57,10 +59,10 @@ define(function () {
     };
 
     Game.prototype._scoreStrike = function (frameIdx) {
-        var score = 0, i = 1, bonusFrames = 2;
+        var score = 0, i = 1, bonusFrames = 2, bonusRoll = this._bonusRoll();
 
-        if (frameIdx <= 9) {
-            score += 10;
+        score += 10;
+        if (!bonusRoll || bonusRoll && frameIdx < bonusRoll - 2) {
             for (i; i <= bonusFrames; i++) {
                 if (this._rolls[frameIdx + i]) {
                     score += this._rolls[frameIdx + i];
@@ -70,6 +72,19 @@ define(function () {
 
         return score;
     };
+
+    Game.prototype._bonusRoll = function () {
+        var hasBonus = false,
+            roll = this._rolls.length - 3;
+
+        if (this._isStrike(roll) || this._isSpare(roll)) {
+            hasBonus = true;
+            this._bonusRollIdx = roll + 2;
+        }
+
+        return (hasBonus) ? this._bonusRollIdx : null;
+    }
+
 
     return Game;
 });
