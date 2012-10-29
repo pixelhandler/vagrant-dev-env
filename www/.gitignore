@@ -1,0 +1,8 @@
+temp
+dist
+app-cov/
+coverage.html
+components/
+build/
+test/build/*.js
+node_modules/
