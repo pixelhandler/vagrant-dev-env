@@ -47,7 +47,7 @@ module.exports = function( grunt ) {
     },
 
     // headless testing through PhantomJS
-    mocha: {
+    jasmine: {
       all: ['test/**/*.html']
     },
 
@@ -183,7 +183,7 @@ module.exports = function( grunt ) {
     }
   });
 
-  // Alias the `test` task to run the `mocha` task instead
-  grunt.registerTask('test', 'server:phantom mocha');
+  // Alias the `test` task to run the `jasmine` task instead
+  grunt.registerTask('test', 'server:phantom jasmine');
 
 };
