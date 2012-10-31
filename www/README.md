@@ -147,10 +147,13 @@ Edit app/scripts/main.js add `app: 'app',` and delete a few lines, all you will 
 	-  console.log(app);
 	-});
 
-Create symbolic link for `scripts` in the test directory, to load [require.js][requirejs] and main.js with one script element:
+Create symbolic link for `scripts` in the test directory, to load [require.js][requirejs] and main.js with one script element. I had an issue creating a symbolic link while in the precise64 box (using `vagrant ssh`), so I exited the ssh connection and made the link.
 
-	cd /vagrant/www/test
-	ln -s ../app/scripts ./scripts
+	exit
+	cd www/test/
+	ln -s ../app/scripts/ ./scripts
+	cd ../../ && vagrant ssh
+	cd /vagrant/www/
 
 The test runner index.html (see below) will use the directory `www/app/scripts` via the symbolic link (see above) to load the application's RequireJS main configuration file and to load the RequireJS library.
 
@@ -227,7 +230,8 @@ Add code to test/spec/game.spec.js
 
 #### Run the spec, `yeoman test` should FAIL
 
-You should get a message "Can't find variable: Game"
+	>> Gutter Game - should score 0 for a gutter game, all rolls are 0
+	>> Message: Can't find variable: Game
 
 ### Pass the failing test, by adding Game constructor
 
@@ -262,6 +266,8 @@ Update spec in test/spec/game.spec.js adding a `require` call for the Game const
 	+});
 
 #### Run the spec, `yeoman test` should PASS
+
+	>> 1 assertions passed (0.01s)
 
 You can also visit <http://precise64.dev/test/> in your browser; the vagrant provisioning task setup the precise64.dev virtual host for you. The precise64.dev domain renders the files served by apache from the `/vagrant/www` directory, and is accessible to your browser as long as your hosts file has the entry `192.168.50.4 precise64.dev`.
 
@@ -301,7 +307,10 @@ Add some stub methods in app/scripts/Game.js
 
 #### Run the spec, `yeoman test` should FAIL
 
-You should get an error message "expected -1 to equal 0"
+	>> Gutter Game - should score 0 for a gutter game, all rolls are 0
+	>> Message: expected -1 to equal 0
+	>> Actual: undefined
+	>> Expected: 0
 
 ### Pass failing test with code change in app/scripts/Game.js
 
@@ -327,6 +336,7 @@ You should get an error message "expected -1 to equal 0"
 
 #### Run the spec, `yeoman test` should PASS
 
+	>> 1 assertions passed (0.01s)
 
 ## Second Test, Game With Every Roll Hitting 1 Pin
 
@@ -346,6 +356,8 @@ You should get an error message "expected -1 to equal 0"
 	+    });
 
 #### Run the spec, `yeoman test` should PASS
+
+	>> 2 assertions passed (0.02s)
 
 ### Refactor test/spec/game.spec.js to make test more DRY (don't repeat yourself)
 
@@ -397,6 +409,7 @@ Each test instantiates a game object, use a `beforeEach` method; also add a `rol
 
 #### Run the spec, `yeoman test` should still PASS
 
+	>> 2 assertions passed (0.02s)
 
 ## Third Test, Game With One Spare
 
@@ -412,19 +425,22 @@ Each test instantiates a game object, use a `beforeEach` method; also add a `rol
 #### Add test for game with the first frame as a spare
 
 	+    describe("Score a game with only a spare", function () {
-     
+    +
     +        it("should score 20 given the first 3 rolls hit 5 pins", function () {
     +            rollSpare.call(this.game);
     +            this.game.roll(5);
     +            rollMany.call(this.game, 17, 0);
     +            expect(this.game.score()).to.equal(20);
     +        });
-     
+    +
     +    });
 
 #### Run the spec, `yeoman test` should FAIL
 
-You should get an error message "expected 15 to equal 20"
+	>> Score a game with only a spare - should score 20 given the first 3 rolls hit 5 pins
+	>> Message: expected 15 to equal 20
+	>> Actual: undefined
+	>> Expected: 20
 
 There is a design error with Game methods: roll() & score() so add some TODOs and *skip* the new test for spare…
 
@@ -447,6 +463,7 @@ There is a design error with Game methods: roll() & score() so add some TODOs an
 
 #### Run the spec, `yeoman test` should PASS (new test was skipped)
 
+	>> 3 assertions passed (0.04s)
 
 ### Refactor Game methods, roll() and score(), in app/scripts/Game.js
 
@@ -477,7 +494,7 @@ Pass tests for rolling and scoring spares…
     +            rollsToScore = this._rolls.length;
     +
     +        for (i; i < rollsToScore; i ++) {
-    +            if (this._rolls[i] + this._rolls[i + 1] === 10) {
+    +            if (this._isSpare(i)) {
     +                score += 10 + this._rolls[i + 2];
     +                i ++;
     +            } else {
@@ -486,16 +503,21 @@ Pass tests for rolling and scoring spares…
     +        }
     +        return score;
     +    };
+    +
+    +    Game.prototype._isSpare = function (rollIdx) {
+    +        return (this._rolls[rollIdx] + this._rolls[rollIdx + 1] === 10);
+    +    };
 	 
 	     return Game;
 
 ### Enable the skipped test in test/spec/game.spec.js
 
-	+    describe.skip("Score a game with only a spare", function () {
-	-    describe("Score a game with only a spare", function () {
+	-    describe.skip("Score a game with only a spare", function () {
+	+    describe("Score a game with only a spare", function () {
 
 #### Run the spec, `yeoman test` should PASS
 
+	>> 3 assertions passed (0.02s)
 
 ## Fourth Test, Game With One Strike
 
@@ -509,7 +531,7 @@ Add helper function for testing a strike in test/spec/game.spec.js
 
 Add test for scoring with one strike and two following rolls each hitting 4 pins
 
-	+    describe("Score a game with only a spare", function () {
+	+    describe("Score a game with only a strike", function () {
 	+
 	+        it("should score 20 given a strike followed by a two rolls hitting 2 & 3 pins", function () {
 	+            rollStrike.call(this.game);
@@ -522,31 +544,51 @@ Add test for scoring with one strike and two following rolls each hitting 4 pins
 
 #### Run the spec, `yeoman test` should FAIL
 
-You should get a message "expected 15 to equal 20"
+If you get a response like:
+
+	>> 0 assertions passed (0s)
+
+It may be a good idea to lint your code, using `yeoman lint`.
+
+	Linting test/spec/game.spec.js...ERROR
+	[L64:C6] Expected ')' and instead saw ';'.
+
+The fix needed at line 64 in game.spec.js is:
+
+    -    };
+    +    });
+
+#### Run the spec, `yeoman test` should FAIL
+
+	>> Score a game with only a spare - should score 20 given a strike followed by a two rolls hitting 2 & 3 pins
+	>> Message: expected 15 to equal 20
+	>> Actual: undefined
+	>> Expected: 20
 
 ### Pass the failing test with code edits in app/scripts/Game.js
 
 Refactor score method, add code to score a strike  
 
 	     Game.prototype.score = function () {
-	-        return this._score;
-    +        var score = 0, i = 0, 
-    +            rollsToScore = this._rolls.length;
-    +
-    +        for (i; i < rollsToScore; i ++) {
-    +            if (this._rolls[i] + this._rolls[i + 1] === 10) {
-    +                score += 10 + this._rolls[i + 2];
-    +                i ++;
-    +            } else if (this._isStrike(i)) {
+             var score = 0, i = 0, 
+                 rollsToScore = this._rolls.length;
+     
+             for (i; i < rollsToScore; i ++) {
+    -            if (this._isSpare(i)) {
+    +            if (this._isStrike(i)) {
     +                score += 10 + this._rolls[i + 1] + this._rolls[i + 2];
-    +            } else {
-    +                score += this._rolls[i];
-    +            }
-    +        }
-    +        return score;
-    +    };
+    +            } else if (this._isSpare(i)) {
+                     score += 10 + this._rolls[i + 2];
+                     i ++;
+                 } else {
+                     score += this._rolls[i];
+                 }
+             }
+     
+             return score;
+         };
 
-Add method to check if a roll is a strike; add a method to score the frame value for a strike
+Add method to check if a roll is a strike
 
 	+    Game.prototype._isStrike = function (rollIdx) {
 	+        return (this._rolls[rollIdx] === 10);
@@ -554,27 +596,60 @@ Add method to check if a roll is a strike; add a method to score the frame value
 
 #### Run the spec, `yeoman test` should PASS
 
+	>> 4 assertions passed (0.02s)
 
 ## Fifth Test, Perfect Game - All Strikes
 
 ### Add test for rolling perfect game of 300 in test/spec/game.spec.js
 
 	+    describe("Score a perfect game of 300 points", function () {
-     
+    +
 	+        it("should score 300 for 12 strikes in a row", function () {
 	+            rollMany.call(this.game, 12, 10);
 	+            expect(this.game.score()).to.equal(300);
 	+        });
-     
+    +
 	+    });
+
+#### Run the spec, `yeoman test` should FAIL
+
+	>> Score a perfect game of 300 points - should score 300 for 12 strikes in a row
+	>> Message: expected NaN to equal 300
+	>> Actual: undefined
+	>> Expected: 300
+
+### Refactor Game object to handle scoring the 10th frame
+
+#### Add method for checking if the game has a bonus roll in the 10th frame
+
+    +    Game.prototype._bonusRoll = function () {
+    +        var hasBonusRoll = false, 
+    +            checkRoll = this._rolls.length - 3;
+    +
+    +        if (this._isStrike(checkRoll) || this._isSpare(checkRoll)) {
+    +            hasBonusRoll = true;
+    +        }
+    +
+    +        return (hasBonusRoll) ? checkRoll : null;
+    +    };
+
+#### Update score method to calculate the 10th frame properly
+
+	     Game.prototype.score = function () {
+             var score = 0, i = 0, 
+    -            rollsToScore = this._rolls.length;
+    +            tenthFrameRoll = this._bonusRoll(),
+    +            rollsToScore = (tenthFrameRoll) ? tenthFrameRoll + 1 : this._rolls.length;
 
 #### Run the spec, `yeoman test` should PASS
 
-### Add one more test in test/spec/game.spec.js 
+	>> 5 assertions passed (0.03s)
 
-As a sanity check, test a complete game with all kinds of rolls 
+### As a sanity check, Add one more test in test/spec/game.spec.js 
 
-	+    describe("Beginner's Game", function () {
+Test a complete game with all kinds of rolls
+
+	+    describe("Game with all scoring variations including tenth frame", function () {
 	+
 	+        it("should score 110", function () {
 	+            var game = this.game;
@@ -607,41 +682,16 @@ As a sanity check, test a complete game with all kinds of rolls
 	+            game.roll(7);
 	+            game.roll(3);
 	+            game.roll(5);
-	+			 expect(this.game.score()).to.equal(110);
+	+            expect(this.game.score()).to.equal(110);
 	+        });
 	+
 	+    });
 
-#### Run the spec, `yeoman test` should FAIL
-
-You should get a message "expected 105 to equal 110"
-
-### Refactor Game object to handle scoring the 10th frame
-
-#### Add method for checking if the game has a bonus roll in the 10th frame
-
-    +    Game.prototype._bonusRoll = function () {
-    +        var hasBonusRoll = false, 
-    +            checkRoll = this._rolls.length - 3;
-    +
-    +        if (this._isStrike(checkRoll) || this._isSpare(checkRoll)) {
-    +            hasBonusRoll = true;
-    +        }
-    +
-    +        return (hasBonusRoll) ? checkRoll : null;
-    +    };
-
-#### Update score method to calculate the 10th frame properly
-
-	     Game.prototype.score = function () {
-             var score = 0, i = 0, 
-    -            rollsToScore = this._rolls.length;
-    +            tenthFrameRoll = this._bonusRoll(),
-    +            rollsToScore = (tenthFrameRoll) ? tenthFrameRoll + 1 : this._rolls.length;
-
 #### Run the spec, `yeoman test` should PASS
 
-Well that's a wrap from red to green over and over until the requirements are met.
+	>> 6 assertions passed (0.03s)
+
+#### Well that's a wrap from red to green over and over until the requirements are met.
 
 
 ## Additional Topics

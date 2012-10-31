@@ -269,10 +269,13 @@ yeoman server
 -});
 </code></pre>
 
-<p>Create symbolic link for <code>scripts</code> in the test directory, to load <a href="http://requirejs.org/docs/requirements.html" title="RequireJS Library for dependency management and build optimization">require.js</a> and main.js with one script element:</p>
+<p>Create symbolic link for <code>scripts</code> in the test directory, to load <a href="http://requirejs.org/docs/requirements.html" title="RequireJS Library for dependency management and build optimization">require.js</a> and main.js with one script element. I had an issue creating a symbolic link while in the precise64 box (using <code>vagrant ssh</code>), so I exited the ssh connection and made the link.</p>
 
-<pre><code>cd /vagrant/www/test
-ln -s ../app/scripts ./scripts
+<pre><code>exit
+cd www/test/
+ln -s ../app/scripts/ ./scripts
+cd ../../ &amp;&amp; vagrant ssh
+cd /vagrant/www/
 </code></pre>
 
 <p>The test runner index.html (see below) will use the directory <code>www/app/scripts</code> via the symbolic link (see above) to load the application's RequireJS main configuration file and to load the RequireJS library.</p>
@@ -352,7 +355,9 @@ cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
 
 <h4 id="run-the-spec-yeoman-test-should-fail">Run the spec, <code>yeoman test</code> should FAIL</h4>
 
-<p>You should get a message "Can't find variable: Game"</p>
+<pre><code>&gt;&gt; Gutter Game - should score 0 for a gutter game, all rolls are 0
+&gt;&gt; Message: Can't find variable: Game
+</code></pre>
 
 <h3 id="pass-the-failing-test-by-adding-game-constructor">Pass the failing test, by adding Game constructor</h3>
 
@@ -391,6 +396,9 @@ cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
 </code></pre>
 
 <h4 id="run-the-spec-yeoman-test-should-pass">Run the spec, <code>yeoman test</code> should PASS</h4>
+
+<pre><code>&gt;&gt; 1 assertions passed (0.01s)
+</code></pre>
 
 <p>You can also visit <a href="http://precise64.dev/test/">http://precise64.dev/test/</a> in your browser; the vagrant provisioning task setup the precise64.dev virtual host for you. The precise64.dev domain renders the files served by apache from the <code>/vagrant/www</code> directory, and is accessible to your browser as long as your hosts file has the entry <code>192.168.50.4 precise64.dev</code>.</p>
 
@@ -432,7 +440,11 @@ cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
 
 <h4 id="run-the-spec-yeoman-test-should-fail-2">Run the spec, <code>yeoman test</code> should FAIL</h4>
 
-<p>You should get an error message "expected -1 to equal 0"</p>
+<pre><code>&gt;&gt; Gutter Game - should score 0 for a gutter game, all rolls are 0
+&gt;&gt; Message: expected -1 to equal 0
+&gt;&gt; Actual: undefined
+&gt;&gt; Expected: 0
+</code></pre>
 
 <h3 id="pass-failing-test-with-code-change-in-appscriptsgamejs">Pass failing test with code change in app/scripts/Game.js</h3>
 
@@ -459,6 +471,9 @@ cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
 
 <h4 id="run-the-spec-yeoman-test-should-pass-2">Run the spec, <code>yeoman test</code> should PASS</h4>
 
+<pre><code>&gt;&gt; 1 assertions passed (0.01s)
+</code></pre>
+
 <h2 id="second-test-game-with-every-roll-hitting-1-pin">Second Test, Game With Every Roll Hitting 1 Pin</h2>
 
 <h3 id="add-new-test-for-scoring-a-game-of-all-20-rolls-only-hitting-1-pin">Add new test for scoring a game of all 20 rolls only hitting 1 pin</h3>
@@ -478,6 +493,9 @@ cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
 </code></pre>
 
 <h4 id="run-the-spec-yeoman-test-should-pass-3">Run the spec, <code>yeoman test</code> should PASS</h4>
+
+<pre><code>&gt;&gt; 2 assertions passed (0.02s)
+</code></pre>
 
 <h3 id="refactor-testspecgamespecjs-to-make-test-more-dry-dont-repeat-yourself">Refactor test/spec/game.spec.js to make test more DRY (don't repeat yourself)</h3>
 
@@ -530,6 +548,9 @@ cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
 
 <h4 id="run-the-spec-yeoman-test-should-still-pass">Run the spec, <code>yeoman test</code> should still PASS</h4>
 
+<pre><code>&gt;&gt; 2 assertions passed (0.02s)
+</code></pre>
+
 <h2 id="third-test-game-with-one-spare">Third Test, Game With One Spare</h2>
 
 <h3 id="add-failing-test-for-a-game-with-one-spare">Add failing test for a game with one spare</h3>
@@ -545,20 +566,24 @@ cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
 <h4 id="add-test-for-game-with-the-first-frame-as-a-spare">Add test for game with the first frame as a spare</h4>
 
 <pre><code>+    describe("Score a game with only a spare", function () {
-
++
 +        it("should score 20 given the first 3 rolls hit 5 pins", function () {
 +            rollSpare.call(this.game);
 +            this.game.roll(5);
 +            rollMany.call(this.game, 17, 0);
 +            expect(this.game.score()).to.equal(20);
 +        });
-
++
 +    });
 </code></pre>
 
 <h4 id="run-the-spec-yeoman-test-should-fail-3">Run the spec, <code>yeoman test</code> should FAIL</h4>
 
-<p>You should get an error message "expected 15 to equal 20"</p>
+<pre><code>&gt;&gt; Score a game with only a spare - should score 20 given the first 3 rolls hit 5 pins
+&gt;&gt; Message: expected 15 to equal 20
+&gt;&gt; Actual: undefined
+&gt;&gt; Expected: 20
+</code></pre>
 
 <p>There is a design error with Game methods: roll() &amp; score() so add some TODOs and <em>skip</em> the new test for spare…</p>
 
@@ -583,6 +608,9 @@ cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
 </code></pre>
 
 <h4 id="run-the-spec-yeoman-test-should-pass-new-test-was-skipped">Run the spec, <code>yeoman test</code> should PASS (new test was skipped)</h4>
+
+<pre><code>&gt;&gt; 3 assertions passed (0.04s)
+</code></pre>
 
 <h3 id="refactor-game-methods-roll-and-score-in-appscriptsgamejs">Refactor Game methods, roll() and score(), in app/scripts/Game.js</h3>
 
@@ -613,7 +641,7 @@ cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
 +            rollsToScore = this._rolls.length;
 +
 +        for (i; i &lt; rollsToScore; i ++) {
-+            if (this._rolls[i] + this._rolls[i + 1] === 10) {
++            if (this._isSpare(i)) {
 +                score += 10 + this._rolls[i + 2];
 +                i ++;
 +            } else {
@@ -622,17 +650,24 @@ cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
 +        }
 +        return score;
 +    };
++
++    Game.prototype._isSpare = function (rollIdx) {
++        return (this._rolls[rollIdx] + this._rolls[rollIdx + 1] === 10);
++    };
 
      return Game;
 </code></pre>
 
 <h3 id="enable-the-skipped-test-in-testspecgamespecjs">Enable the skipped test in test/spec/game.spec.js</h3>
 
-<pre><code>+    describe.skip("Score a game with only a spare", function () {
--    describe("Score a game with only a spare", function () {
+<pre><code>-    describe.skip("Score a game with only a spare", function () {
++    describe("Score a game with only a spare", function () {
 </code></pre>
 
 <h4 id="run-the-spec-yeoman-test-should-pass-4">Run the spec, <code>yeoman test</code> should PASS</h4>
+
+<pre><code>&gt;&gt; 3 assertions passed (0.02s)
+</code></pre>
 
 <h2 id="fourth-test-game-with-one-strike">Fourth Test, Game With One Strike</h2>
 
@@ -647,7 +682,7 @@ cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
 
 <p>Add test for scoring with one strike and two following rolls each hitting 4 pins</p>
 
-<pre><code>+    describe("Score a game with only a spare", function () {
+<pre><code>+    describe("Score a game with only a strike", function () {
 +
 +        it("should score 20 given a strike followed by a two rolls hitting 2 &amp; 3 pins", function () {
 +            rollStrike.call(this.game);
@@ -661,32 +696,56 @@ cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
 
 <h4 id="run-the-spec-yeoman-test-should-fail-4">Run the spec, <code>yeoman test</code> should FAIL</h4>
 
-<p>You should get a message "expected 15 to equal 20"</p>
+<p>If you get a response like:</p>
+
+<pre><code>&gt;&gt; 0 assertions passed (0s)
+</code></pre>
+
+<p>It may be a good idea to lint your code, using <code>yeoman lint</code>.</p>
+
+<pre><code>Linting test/spec/game.spec.js...ERROR
+[L64:C6] Expected ')' and instead saw ';'.
+</code></pre>
+
+<p>The fix needed at line 64 in game.spec.js is:</p>
+
+<pre><code>-    };
++    });
+</code></pre>
+
+<h4 id="run-the-spec-yeoman-test-should-fail-5">Run the spec, <code>yeoman test</code> should FAIL</h4>
+
+<pre><code>&gt;&gt; Score a game with only a spare - should score 20 given a strike followed by a two rolls hitting 2 &amp; 3 pins
+&gt;&gt; Message: expected 15 to equal 20
+&gt;&gt; Actual: undefined
+&gt;&gt; Expected: 20
+</code></pre>
 
 <h3 id="pass-the-failing-test-with-code-edits-in-appscriptsgamejs">Pass the failing test with code edits in app/scripts/Game.js</h3>
 
 <p>Refactor score method, add code to score a strike  </p>
 
 <pre><code>     Game.prototype.score = function () {
--        return this._score;
-+        var score = 0, i = 0, 
-+            rollsToScore = this._rolls.length;
-+
-+        for (i; i &lt; rollsToScore; i ++) {
-+            if (this._rolls[i] + this._rolls[i + 1] === 10) {
-+                score += 10 + this._rolls[i + 2];
-+                i ++;
-+            } else if (this._isStrike(i)) {
+         var score = 0, i = 0, 
+             rollsToScore = this._rolls.length;
+
+         for (i; i &lt; rollsToScore; i ++) {
+-            if (this._isSpare(i)) {
++            if (this._isStrike(i)) {
 +                score += 10 + this._rolls[i + 1] + this._rolls[i + 2];
-+            } else {
-+                score += this._rolls[i];
-+            }
-+        }
-+        return score;
-+    };
++            } else if (this._isSpare(i)) {
+                 score += 10 + this._rolls[i + 2];
+                 i ++;
+             } else {
+                 score += this._rolls[i];
+             }
+         }
+
+         return score;
+     };
 </code></pre>
 
-<p>Add method to check if a roll is a strike; add a method to score the frame value for a strike</p>
+<p>Add method to check if a roll is a strike</p>
 
 <pre><code>+    Game.prototype._isStrike = function (rollIdx) {
 +        return (this._rolls[rollIdx] === 10);
@@ -695,27 +754,66 @@ cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
 
 <h4 id="run-the-spec-yeoman-test-should-pass-5">Run the spec, <code>yeoman test</code> should PASS</h4>
 
+<pre><code>&gt;&gt; 4 assertions passed (0.02s)
+</code></pre>
+
 <h2 id="fifth-test-perfect-game-all-strikes">Fifth Test, Perfect Game - All Strikes</h2>
 
 <h3 id="add-test-for-rolling-perfect-game-of-300-in-testspecgamespecjs">Add test for rolling perfect game of 300 in test/spec/game.spec.js</h3>
 
 <pre><code>+    describe("Score a perfect game of 300 points", function () {
-
++
 +        it("should score 300 for 12 strikes in a row", function () {
 +            rollMany.call(this.game, 12, 10);
 +            expect(this.game.score()).to.equal(300);
 +        });
-
++
 +    });
+</code></pre>
+
+<h4 id="run-the-spec-yeoman-test-should-fail-6">Run the spec, <code>yeoman test</code> should FAIL</h4>
+
+<pre><code>&gt;&gt; Score a perfect game of 300 points - should score 300 for 12 strikes in a row
+&gt;&gt; Message: expected NaN to equal 300
+&gt;&gt; Actual: undefined
+&gt;&gt; Expected: 300
+</code></pre>
+
+<h3 id="refactor-game-object-to-handle-scoring-the-10th-frame">Refactor Game object to handle scoring the 10th frame</h3>
+
+<h4 id="add-method-for-checking-if-the-game-has-a-bonus-roll-in-the-10th-frame">Add method for checking if the game has a bonus roll in the 10th frame</h4>
+
+<pre><code>+    Game.prototype._bonusRoll = function () {
++        var hasBonusRoll = false, 
++            checkRoll = this._rolls.length - 3;
++
++        if (this._isStrike(checkRoll) || this._isSpare(checkRoll)) {
++            hasBonusRoll = true;
++        }
++
++        return (hasBonusRoll) ? checkRoll : null;
++    };
+</code></pre>
+
+<h4 id="update-score-method-to-calculate-the-10th-frame-properly">Update score method to calculate the 10th frame properly</h4>
+
+<pre><code>     Game.prototype.score = function () {
+         var score = 0, i = 0, 
+-            rollsToScore = this._rolls.length;
++            tenthFrameRoll = this._bonusRoll(),
++            rollsToScore = (tenthFrameRoll) ? tenthFrameRoll + 1 : this._rolls.length;
 </code></pre>
 
 <h4 id="run-the-spec-yeoman-test-should-pass-6">Run the spec, <code>yeoman test</code> should PASS</h4>
 
-<h3 id="add-one-more-test-in-testspecgamespecjs">Add one more test in test/spec/game.spec.js</h3>
+<pre><code>&gt;&gt; 5 assertions passed (0.03s)
+</code></pre>
 
-<p>As a sanity check, test a complete game with all kinds of rolls </p>
+<h3 id="as-a-sanity-check-add-one-more-test-in-testspecgamespecjs">As a sanity check, Add one more test in test/spec/game.spec.js</h3>
 
-<pre><code>+    describe("Beginner's Game", function () {
+<p>Test a complete game with all kinds of rolls</p>
+
+<pre><code>+    describe("Game with all scoring variations including tenth frame", function () {
 +
 +        it("should score 110", function () {
 +            var game = this.game;
@@ -754,38 +852,12 @@ cd /vagrant/www/app/scripts &amp;&amp; touch Game.js
 +    });
 </code></pre>
 
-<h4 id="run-the-spec-yeoman-test-should-fail-5">Run the spec, <code>yeoman test</code> should FAIL</h4>
-
-<p>You should get a message "expected 105 to equal 110"</p>
-
-<h3 id="refactor-game-object-to-handle-scoring-the-10th-frame">Refactor Game object to handle scoring the 10th frame</h3>
-
-<h4 id="add-method-for-checking-if-the-game-has-a-bonus-roll-in-the-10th-frame">Add method for checking if the game has a bonus roll in the 10th frame</h4>
-
-<pre><code>+    Game.prototype._bonusRoll = function () {
-+        var hasBonusRoll = false, 
-+            checkRoll = this._rolls.length - 3;
-+
-+        if (this._isStrike(checkRoll) || this._isSpare(checkRoll)) {
-+            hasBonusRoll = true;
-+        }
-+
-+        return (hasBonusRoll) ? checkRoll : null;
-+    };
-</code></pre>
-
-<h4 id="update-score-method-to-calculate-the-10th-frame-properly">Update score method to calculate the 10th frame properly</h4>
-
-<pre><code>     Game.prototype.score = function () {
-         var score = 0, i = 0, 
--            rollsToScore = this._rolls.length;
-+            tenthFrameRoll = this._bonusRoll(),
-+            rollsToScore = (tenthFrameRoll) ? tenthFrameRoll + 1 : this._rolls.length;
-</code></pre>
-
 <h4 id="run-the-spec-yeoman-test-should-pass-7">Run the spec, <code>yeoman test</code> should PASS</h4>
 
-<p>Well that's a wrap from red to green over and over until the requirements are met.</p>
+<pre><code>&gt;&gt; 6 assertions passed (0.03s)
+</code></pre>
+
+<h4 id="well-thats-a-wrap-from-red-to-green-over-and-over-until-the-requirements-are-met">Well that's a wrap from red to green over and over until the requirements are met.</h4>
 
 <h2 id="additional-topics">Additional Topics</h2>
 
