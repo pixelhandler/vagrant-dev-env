@@ -1,12 +1,11 @@
-// Bowling Game specs
-define(['game'], function (Game) {
+// Bowling game specs
+require(['game'], function (Game) {
 
-describe("Bowling Game Kata", function () {
+describe("Ten-Ping Bowling Kata", function () {
 
     function rollMany(rolls, pins) {
-        var i;
-
-        for (i = 0; i < rolls; i++) {
+        var i = 0;
+        for (i; i < rolls; i ++) {
             this.roll(pins);
         }
     }
@@ -26,62 +25,55 @@ describe("Bowling Game Kata", function () {
 
     describe("Gutter Game", function () {
 
-        it("should score zero", function () {
+        it("should score 0 for a gutter game, all rolls are 0", function () {
             rollMany.call(this.game, 20, 0);
             expect(this.game.score()).to.equal(0);
-        });
+        }); 
 
     });
 
-    describe("Game with every roll only hitting one pin", function () {
+    describe("Score game given all rolls hit only one pin", function () {
 
-        it("should score 20 given each roll hits 1 pin", function () {
+        it("should score 20", function () {
             rollMany.call(this.game, 20, 1);
             expect(this.game.score()).to.equal(20);
         });
 
     });
 
-    describe("Game with one spare", function () {
+    describe("Score a game with only a spare", function () {
 
         it("should score 20 given the first 3 rolls hit 5 pins", function () {
-            rollSpare.call(this.game)
+            rollMany.call(this.game, 2, 5);
             this.game.roll(5);
             rollMany.call(this.game, 17, 0);
             expect(this.game.score()).to.equal(20);
         });
 
-        it("should score 19 given a spare and 2 following rolls of 3", function () {
-            rollSpare.call(this.game)
-            this.game.roll(3);
-            this.game.roll(3);
-            rollMany.call(this.game, 16, 0);
-            expect(this.game.score()).to.equal(19);
-        });
-
     });
 
-    describe("Game with one strike", function () {
+    describe("Score a game with only one strike", function () {
 
-        it("should score 26 given a strike on the 1st roll and 2 following rolls that hit 4 pins", function () {
-            rollStrike.call(this.game);
-            rollMany.call(this.game, 2, 4);
+        it("should score 20 given a strike followed by a two rolls hitting 2 & 3 pins", function () {
+            this.game.roll(10);
+            this.game.roll(2);
+            this.game.roll(3);
             rollMany.call(this.game, 17, 0);
-            expect(this.game.score()).to.equal(26);
+            expect(this.game.score()).to.equal(20);
         });
 
     });
 
-    describe("Perfect game", function () {
+    describe("Score a perfect game of 300 points", function () {
 
-        it("should score 300 for with 12 strikes in a row", function () {
+        it("should score 300 for 12 strikes in a row", function () {
             rollMany.call(this.game, 12, 10);
             expect(this.game.score()).to.equal(300);
         });
 
     });
 
-    describe("Beginner's Game", function () {
+    describe("Game with all scoring variations including tenth frame", function () {
 
         it("should score 110", function () {
             var game = this.game;

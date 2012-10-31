@@ -9,25 +9,25 @@
   <div id="mocha"></div>
 
   <script src="lib/mocha/mocha.js"></script>
-  <script>mocha.setup('bdd')</script>
   <script src="lib/chai.js"></script>
-  <script>expect = chai.expect</script>
   <script src="scripts/vendor/require.js"></script>
 
   <script>
+    mocha.setup({ui: 'bdd', ignoreLeaks: true});
+    expect = chai.expect;
     require.config({
-        paths: {
-            spec: 'spec',
-            gameSpec: 'spec/game.spec',
-            game: 'scripts/Game',
-            runner: 'runner/mocha'
-        },
+      paths: {
+        spec: 'spec',
+        gameSpec: 'spec/game.spec',
+        game: 'scripts/Game',
+        runner: 'runner/mocha'
+      },
     });
     require(['spec'], function () {
       // new callstack needed for runner
-      window.setTimeout(function () {
+      setTimeout(function () {
         require(['runner']);
-      },100);
+      }, 100);
     });
   </script>
 

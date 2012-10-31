@@ -1,90 +1,57 @@
+// Bowling game
+
 define(function () {
-    var Game = function () {
-        this._currentRoll = 0;
+    var Game;
+
+    Game = function () {
         this._rolls = [];
-        this._spares = [];
+        this._currentRoll = 0;
     };
 
     Game.prototype.roll = function (pins) {
         if (typeof pins !== 'number') {
-            throw new Error('Game.role() expects `pins` argument to be a number');
+            throw new Error("expeced a number");
         }
         this._rolls[this._currentRoll++] = pins;
     };
 
     Game.prototype.score = function () {
-        var score = 0, frameIdx = 0, bonusRoll = this._bonusRoll();
+        var score = 0, i = 0, 
+            tenthFrameRoll = this._bonusRoll(),
+            rollsToScore = (tenthFrameRoll) ? tenthFrameRoll + 1 : this._rolls.length;
 
-        for (frameIdx; frameIdx < this._rolls.length; frameIdx++) {
-            if (this._isStrike(frameIdx)) {
-                score += this._scoreStrike(frameIdx);
-            } else if (this._isSpare(frameIdx)) {
-                score += 10 + this._rolls[frameIdx + 2];
-                frameIdx ++;
+        for (i; i < rollsToScore; i ++) {
+            if (this._isStrike(i)) {
+                score += 10 + this._rolls[i + 1] + this._rolls[i + 2];
+            } else if (this._isSpare(i)) {
+                score += 10 + this._rolls[i + 2];
+                i ++;
             } else {
-                if (!bonusRoll || bonusRoll && frameIdx < bonusRoll) {
-                    score += this._rolls[frameIdx];
-                }
+                score += this._rolls[i];
             }
         }
 
         return score;
     };
 
-    Game.prototype._isSpare = function (frameIdx) {
-        var isSpare = (this._rolls[frameIdx] + this._rolls[frameIdx + 1] === 10),
-            isLastRollSpare,
-            i = 0;
-
-        if (isSpare) {
-            if (this._rolls.length) {
-                for (i; i < this._spares.length; i++) {
-                    if (this._spares[i] === frameIdx - 1) {
-                        isLastRollSpare = true;
-                    }
-                }
-            }
-            if (!isLastRollSpare) {
-                this._spares.push(frameIdx);
-            } else {
-                isSpare = false;
-            }
-        }
-
-        return isSpare;
+    Game.prototype._isSpare = function (rollIdx) {
+        return (this._rolls[rollIdx] + this._rolls[rollIdx + 1] === 10);
     };
 
-    Game.prototype._isStrike = function (frameIdx) {
-        return (this._rolls[frameIdx] === 10);
-    };
-
-    Game.prototype._scoreStrike = function (frameIdx) {
-        var score = 0, i = 1, bonusFrames = 2, bonusRoll = this._bonusRoll();
-
-        score += 10;
-        if (!bonusRoll || bonusRoll && frameIdx < bonusRoll - 2) {
-            for (i; i <= bonusFrames; i++) {
-                if (this._rolls[frameIdx + i]) {
-                    score += this._rolls[frameIdx + i];
-                }
-            }
-        }
-
-        return score;
+    Game.prototype._isStrike = function (rollIdx) {
+        return (this._rolls[rollIdx] === 10);
     };
 
     Game.prototype._bonusRoll = function () {
-        var hasBonus = false,
-            roll = this._rolls.length - 3;
+        var hasBonusRoll = false, 
+            checkRoll = this._rolls.length - 3;
 
-        if (this._isStrike(roll) || this._isSpare(roll)) {
-            hasBonus = true;
-            this._bonusRollIdx = roll + 2;
+        if (this._isStrike(checkRoll) || this._isSpare(checkRoll)) {
+            hasBonusRoll = true;
         }
 
-        return (hasBonus) ? this._bonusRollIdx : null;
-    }
-
+        return (hasBonusRoll) ? checkRoll : null;
+    };
 
     return Game;
 });
