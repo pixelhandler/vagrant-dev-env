@@ -57,6 +57,7 @@ dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
 <%= import 'bin/yeoman.sh' %>
 <%= import 'bin/vim-config.sh' %>
 <%= import 'bin/z-config.sh' %>
+<%= import 'bin/jsctags.sh' %>
 <%= import 'bin/dotfiles.sh' %>
 
 echo 'if [ -d "/vagrant/bin" ]; then PATH=$PATH":/vagrant/bin"; fi' >> ~/.profile

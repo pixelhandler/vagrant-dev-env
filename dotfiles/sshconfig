@@ -1,6 +1,0 @@
-# ~/.ssh/config
-
-Host github.com
-    User git
-    # ForwardAgent yes
-    # IdentityFile ~/.ssh/id_rsa
