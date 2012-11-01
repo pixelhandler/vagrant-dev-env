@@ -32,3 +32,13 @@ else
   echo '"`cd ~/.vim/bundle/command-t && sudo rake make`'
 fi
 
+# jsctags - see git://github.com/mozilla/doctorjs.git
+if [ -x jsctags ]; then
+    echo 'jsctags is installed. '
+else
+    cd /tmp/ && git clone git://github.com/mozilla/doctorjs.git
+    cd doctorjs
+    git submodule update --init --recursive
+    make install
+    mv /tmp/doctorjs /usr/local/src/doctorjs
+fi
