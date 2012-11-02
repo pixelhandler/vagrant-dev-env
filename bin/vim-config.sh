@@ -31,4 +31,3 @@ else
   echo 'you will need to build, like so... '
   echo '"`cd ~/.vim/bundle/command-t && sudo rake make`'
 fi
-
