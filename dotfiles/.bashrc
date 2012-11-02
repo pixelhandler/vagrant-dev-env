@@ -4,7 +4,7 @@ export NODE_PATH="/usr/local/bin/node:/usr/local/lib/node_modules:/usr/local/lib
 export EDITOR=vim
 
 # https://github.com/rupa/z.git
-. /home/vagrant/bin/z.sh
+. /usr/local/bin/z.sh
 # alias zadd="_z --add \"\$(pwd -P 2>/dev/null)\" 2>/dev/null;"
 
 showBranch(){
