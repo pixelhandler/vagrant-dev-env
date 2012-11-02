@@ -4,5 +4,5 @@ app-cov/
 coverage.html
 components/
 build/
-test/build/*
+test/build/*.js
 node_modules/
