@@ -1,0 +1,6 @@
+--type-set=dw=.isml,.ds,.xml,.properties
+--type-set=prop=.properties
+--type-set=sass=.scss,.sass
+--type-set=less=.less
+--type-set=json=.json
+--type-set=css=.css,.sass,.scss,.less
