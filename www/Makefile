@@ -10,4 +10,7 @@ test:
 	@r.js -o build.almond.js
 	@yeoman test
 
+setup:
+	@yeoman install almond
+
 .PHONY: test
