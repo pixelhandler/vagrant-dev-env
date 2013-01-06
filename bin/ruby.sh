@@ -8,7 +8,8 @@ apt-packages-install \
   rake               \
   rbenv
 
-curl -L get.rvm.io | bash -s stable --auto
+#curl -L get.rvm.io | bash -s stable --auto
+#curl -L https://get.rvm.io | bash -s -- --auto-dotfiles
 
 alternatives-ruby-install 1.9.1
 ruby-gems-install pkg-config

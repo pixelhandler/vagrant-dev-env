@@ -32,7 +32,7 @@ The precise64 box uses a shell script to provision the vagrant box. Also in the 
 
 ## Build Something with Yeoman.io, deployd, or Meteor
 
-1. If not alread in the repo's root directory `cd vagrant-dev-env` (or the path you created)
+1. If not already in the repo's root directory `cd vagrant-dev-env` (or the path you created)
 2. Login to your presice64 box via ssh `vagrant ssh` (the examples below are run from the vagrant box after connecting via ssh)
 
 * Build a HTML5 boilerplate project: `cd /vagrant/www && yeoman init quickstart`  

@@ -24,12 +24,13 @@ fi
 
 # PhantomJS - see: http://phantomjs.org/download.html & http://phantomjs.org/build.html
 # 64-bit - http://phantomjs.googlecode.com/files/phantomjs-1.7.0-linux-x86_64.tar.bz2
-if [ -d /usr/local/src/phantomjs-1.7.0-linux-x86_64 ]
+#          http://phantomjs.googlecode.com/files/phantomjs-1.8.0-linux-x86_64.tar.bz2
+if [ -d /usr/local/src/phantomjs-1.8.0-linux-x86_64 ]
 then
   echo 'We have the src for phantomjs. '
 else 
   cd /usr/local/src
-  curl -L http://phantomjs.googlecode.com/files/phantomjs-1.7.0-linux-x86_64.tar.bz2 | sudo tar jx
+  curl -L http://phantomjs.googlecode.com/files/phantomjs-1.8.0-linux-x86_64.tar.bz2 | sudo tar jx
   echo 'The phantomjs src us downloaded. '
 fi
 
@@ -38,7 +39,7 @@ then
   echo 'We have a symbolic link for phantomjs. '
 else 
   echo 'Create a symbolic link for phantomjs. '
-  sudo ln -s /usr/local/src/phantomjs-1.7.0-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs
+  sudo ln -s /usr/local/src/phantomjs-1.8.0-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs
 fi
 
 # Install Yeoman (node package)
