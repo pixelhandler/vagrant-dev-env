@@ -5,7 +5,7 @@ if [ -x /usr/local/bin/z.sh ]; then
     echo 'z is installed. '
 else
     cd /usr/local/src/ && git clone https://github.com/rupa/z.git
-    cd z && git checkout v1.4
+    cd z && git checkout v1.8
     cp z.sh /usr/local/bin/z.sh
     chmod u+x /usr/local/bin/z.sh
 fi
