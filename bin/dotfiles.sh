@@ -42,4 +42,4 @@ else
 fi
 unset doIt
 unset dryRun
-source ~/.bash_profile
+source ~/.bashrc

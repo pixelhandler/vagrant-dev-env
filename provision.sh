@@ -46,20 +46,20 @@ apt-packages-install     \
   libxml2-dev            \
   libxslt-dev            \
   libc6-dev              \
-  ncurses-dev  
+  ncurses-dev            \
+  python-software-properties \
+  python                 \
+  g++                    \
+  make                   \
 
 dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
 
 <%= import 'bin/ruby.sh' %>
+<%= import 'bin/rethinkdb.sh' %>
 <%= import 'bin/node.sh' %>
-<%= import 'bin/mongo.sh' %>
-<%= import 'bin/lamp.sh' %>
-<%= import 'bin/yeoman.sh' %>
 <%= import 'bin/vim-config.sh' %>
 <%= import 'bin/z-config.sh' %>
 <%= import 'bin/jsctags.sh' %>
 <%= import 'bin/dotfiles.sh' %>
 
 echo 'if [ -d "/vagrant/bin" ]; then PATH=$PATH":/vagrant/bin"; fi' >> ~/.profile
-
-
