@@ -1,6 +1,6 @@
 [user]
-	name = Bill Heaton
-	email = pixelhandler@gmail.com
+    name = Bill Heaton
+    email = pixelhandler@gmail.com
 
 [alias]
     co = checkout
@@ -29,3 +29,4 @@
 
 [core]
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+    editor = vim
